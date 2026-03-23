@@ -1,12 +1,49 @@
-const express = require('express');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import {config} from 'dotenv';
+import {connectDB, disconnectDB} from './config/db.js';
+
+
+connectDB();
+
+// import routes
+import initialRoutes from './routes/initialRoutes.js';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Hello from the backend!' });
-});
+// 🔹 Middleware
+app.use(cors());
+app.use(express.json());
+
+// API Routes
+app.use('/api/initial', initialRoutes);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+});
+
+process.on("unhandledRejection", (err) => {
+    console.error("Unhandled Rejection:", err);
+    if(server){
+        server.close(async()=>{
+        await disconnectDB();
+        process.exit(1);
+    })
+    }
+})
+
+process.on("uncaughtException", async (err) => {
+    console.error("Uncaught Exception:", err);
+    await disconnectDB();
+    process.exit(1);
+})
+
+process.on("SIGINT", async () => {
+    console.log("SIGINT received, shutting down gracefully...");
+    server.close(async () => {
+        await disconnectDB();
+        process.exit(0);
+    });
 });

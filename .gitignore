@@ -1,16 +1,20 @@
-# dependencies
+# --- Dependencies (Covers root, backend, and frontend) ---
 node_modules/
 
-# env files
+# --- Secrets ---
 .env
 
-# build files
+# --- Backend / Prisma ---
+backend/src/generated/prisma/
+*.db
+*.db-journal
+
+# --- Frontend / Vite ---
 dist/
-build/
+dist-ssr/
 
-# logs
-npm-debug.log*
-yarn-error.log*
-
-# OS files
+# --- System / IDE ---
 .DS_Store
+*.log
+.vscode/
+.idea/
