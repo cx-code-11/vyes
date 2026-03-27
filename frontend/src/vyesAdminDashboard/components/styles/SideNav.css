@@ -1,0 +1,25 @@
+/* In SideNav.css */
+
+/* This ensures padding/borders don't "push" the width wider than 100% */
+* {
+    box-sizing: border-box;
+}
+
+.sideNavWrapper {
+    width: 100%;      /* Take up all of that 20% from MainLayout */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa;
+    border: 1px solid red; /* Light grey so you can see the bounds */
+}
+
+.logoContainer {
+    width: 100%; 
+    border: 1px solid red; /* Your test border */
+}
+
+.logoContainer > img {
+    width: 100%; /* Make the logo image take up the full width of its container */
+    padding: 10px;
+}

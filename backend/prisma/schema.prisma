@@ -12,9 +12,383 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id    String     @id @default(uuid())
-  email String  @unique
-  name  String?
-  createdAt DateTime @default(now())
+
+model Vendor {
+  id           String          @id @default(uuid())
+  uiId    String    @unique
+  isActive            Boolean          @default(true)
+  created             DateTime        @default(now())
+  updated             DateTime        @updatedAt
+  businessName       String
+  representativeName String
+  phoneNumber        String
+  email               String
+  address             String
+  mapUrl             String?
+  rating              Float
+  workingHours       WorkingHours[]
+  logoUrl            String?
+  employeeCount      Int
+  level               Int
+  aadharNumber       String
+  panNumber          String
+  username            String
+  password            String
+  services VendorService[]
+  orders              Order[]
+  paymentRecord      Payment[]
+  bankDetail         Bank[]
+}
+
+model VendorService {
+  id String @id @default(uuid())
+
+  vendorIdFk String
+  serviceModeIdFk String
+
+  vendor Vendor @relation(fields: [vendorIdFk], references: [id])
+  serviceMode ServiceMode @relation(fields: [serviceModeIdFk], references: [id])
+
+  price Float?
+  experienceYears Int?
+
+  @@unique([vendorIdFk, serviceModeIdFk])
+}
+
+model WorkingHours {
+  id String @id @default(uuid())
+
+  vendorIdFk String
+  day          Int
+  startTime   String
+  endTime     String
+
+  vendor Vendor @relation(fields: [vendorIdFk ], references: [id])
+}
+
+model Customer {
+  id    String    @id @default(uuid())
+  uiId    String    @unique
+  isActive       Boolean    @default(true)
+  created        DateTime  @default(now())
+  updated        DateTime  @updatedAt
+  name           String
+  phoneNumber   String
+  email          String
+  address        String
+  mapUrl         String?
+  isSubscribed   Boolean    @default(false)
+  username       String
+  password       String
+  coupons        Coupon[]
+  mycart         Cart[]
+  paymentRecord Payment[]
+  bankDetail        Bank[]
+  orders         Order[]
+}
+
+model Cart {
+  id String @id @default(uuid())
+
+  customerIdFk     String
+  serviceIdFk      String
+  serviceModeIdFk String?
+
+  quantity Int @default(1)
+
+  created DateTime @default(now())
+
+  customer     Customer      @relation(fields: [customerIdFk], references: [id])
+  service      Service       @relation(fields: [serviceIdFk], references: [id])
+  serviceMode ServiceMode? @relation(fields: [serviceModeIdFk], references: [id])
+}
+
+model Employee {
+  id     String    @id @default(uuid())
+  uiId    String    @unique
+  isActive        Boolean   @default(true)
+  created         DateTime  @default(now())
+  updated         DateTime  @updatedAt
+  employeeUiId  String    @unique
+  name            String
+  phoneNumber    String
+  email           String
+  address         String
+  dob             DateTime
+  aadharNumber   String
+  aadharImgUrl  String?
+  myphotoImgUrl String?
+  salary          Float
+  username        String
+  password        String
+  paymentRecord  Payment[]
+  bankDetail     Bank[]
+}
+
+model Admin {
+  id        String    @id @default(uuid())
+  uiId    String    @unique
+  isActive        Boolean   @default(true)
+  created         DateTime  @default(now())
+  updated         DateTime  @updatedAt
+  adminUiId     String    @unique
+  name            String
+  phoneNumber    String
+  email           String
+  address         String
+  dob             DateTime
+  aadharNumber   String
+  aadharImgUrl  String?
+  myphotoImgUrl String?
+  salary          Float
+  username        String
+  password        String
+  paymentRecord  Payment[]
+  bankDetail       Bank[]
+}
+
+enum OrderStatus {
+  QuoteRequested
+  QuoteSend
+  AssigningVendor
+  VendorAccepted
+  InProgress
+  Completed
+  Cancelled
+}
+
+model Order {
+  id       String    @id @default(uuid())
+  uiId    String    @unique
+  created        DateTime  @default(now())
+  updated        DateTime  @updatedAt
+  serviceIdFk  String
+  vendorIdFk   String?
+  customerIdFk String
+  offerIdFk    String?
+  couponIdFk   String?
+  serviceTime   DateTime
+  note           String?
+  imgVideoUrl  String?
+  amount         Float?
+  payment        Payment[]
+  orderStatus   OrderStatus
+  service        Service   @relation(fields: [serviceIdFk], references: [id])
+  vendor         Vendor?   @relation(fields: [vendorIdFk], references: [id])
+  customer       Customer  @relation(fields: [customerIdFk], references: [id])
+}
+
+model ServiceCategory {
+  id String    @id @default(uuid())
+  isActive            Boolean    @default(true)
+  created             DateTime  @default(now())
+  updated             DateTime  @updatedAt
+  name                String
+  imgVideoUrl       String?
+  services            Service[]
+}
+
+model Service {
+  id             String           @id @default(uuid())
+  isActive               Boolean           @default(true)
+  created                DateTime         @default(now())
+  updated                DateTime         @updatedAt
+  name                   String
+  imgUrl                String?
+  serviceCategoryIdFk String
+  modes                  ServiceMode[]
+  relatedServices       Service[]        @relation("RelatedServices")
+  relatedTo             Service[]        @relation("RelatedServices")
+  serviceCategoryRef   ServiceCategory @relation(fields: [serviceCategoryIdFk], references: [id])
+  carts                  Cart[]
+  orders                 Order[]
+}
+
+model ServiceMode {
+  id String              @id @default(uuid())
+  isActive        Boolean              @default(true)
+  created         DateTime            @default(now())
+  updated         DateTime            @updatedAt
+  name            String
+  description     String
+  what            String
+  why             String
+  best            String
+  amount          Float
+  serviceIdFk   String
+  vendors VendorService[]
+  steps           ServiceModeStep[]
+  serviceRef     Service             @relation(fields: [serviceIdFk], references: [id])
+  carts           Cart[]
+  offer           Offer?              @relation(fields: [offerIdFk], references: [id])
+  offerIdFk   String?
+}
+
+model ServiceModeStep {
+  id String       @id @default(uuid())
+  isActive             Boolean       @default(true)
+  created              DateTime     @default(now())
+  updated              DateTime     @updatedAt
+  title                String
+  description          String
+  imgUrl              String?
+  serviceModeIdFk   String
+  serviceModeRef     ServiceMode @relation(fields: [serviceModeIdFk], references: [id])
+}
+
+model Offer {
+  id String         @id @default(uuid())
+  isActive Boolean         @default(true)
+  created  DateTime       @default(now())
+  updated  DateTime       @updatedAt
+  title    String
+  type     String
+  value    Int
+  start    DateTime
+  end      DateTime
+  imgUrl  String?
+  services ServiceMode[]
+}
+
+model Coupon {
+  id   String    @id @default(uuid())
+  isActive    Boolean    @default(true)
+  created     DateTime  @default(now())
+  updated     DateTime  @updatedAt
+  title       String
+  type        String
+  value       Int
+  start       DateTime
+  end         DateTime
+  assigntoFk String?
+  minValue   Int
+  customers   Customer? @relation(fields: [assigntoFk], references: [id])
+}
+
+enum TransactionType {
+  credit
+  debit
+}
+
+enum TransactionTo {
+  vyess
+  vendor
+  employee
+  customer
+}
+
+enum TransactionFor {
+  customerPayment
+  vendorPayout
+  employeeSalary
+  refund
+}
+
+enum PaymentMode {
+  cash
+  card
+  upi
+  netbanking
+  wallet
+}
+
+
+model Payment {
+  id String @id @default(uuid())
+
+  created      DateTime @default(now())
+  deleted      DateTime ?
+  updated      DateTime @updatedAt
+  updatedByFk String
+
+  orderIdFk    String?
+  customerIdFk String?
+  vendorIdFk   String?
+  employeeIdFk String?
+  adminIdFk       String?
+
+  amount Float
+
+  transactionType TransactionType
+  transactionTo  TransactionTo
+  transactionFor TransactionFor?
+
+  mode           PaymentMode
+  transactionId String?
+
+  status String
+  note  String?
+
+  order               Order?    @relation(fields: [orderIdFk], references: [id])
+  customer            Customer? @relation(fields: [customerIdFk], references: [id])
+  vendor              Vendor?   @relation(fields: [vendorIdFk], references: [id])
+  employee            Employee? @relation(fields: [employeeIdFk], references: [id])
+  admin               Admin?    @relation(fields: [adminIdFk], references: [id])
+}
+
+enum AccountFor {
+  vendor
+  customer
+  admin
+  employee
+}
+
+model Bank {
+  id        String   @id @default(uuid())
+  created        DateTime @default(now())
+  updated        DateTime @updatedAt
+
+  accountFor    AccountFor
+
+  vendorIdFk   String?
+  customerIdFk String?
+  adminIdFk    String?
+  employeeIdFk String?
+
+  accountNumber String
+  accountName   String
+  ifscCode      String
+  upi            String
+  qrImgUrl     String?
+
+  vendor   Vendor?   @relation(fields: [vendorIdFk], references: [id])
+  customer Customer? @relation(fields: [customerIdFk], references: [id])
+  admin    Admin?    @relation(fields: [adminIdFk], references: [id])
+  employee Employee? @relation(fields: [employeeIdFk], references: [id])
+}
+
+model Activity {
+  id String   @id @default(uuid())
+  created     DateTime @default(now())
+  updated     DateTime @updatedAt
+  title       String
+  videoUrl   String?
+  position    Int
+}
+
+model Document {
+  id String @id @default(uuid())
+
+  title       String
+  fileUrl    String?
+  description String?
+
+  uploadedById   String
+  sharedWithId   String
+
+  created DateTime @default(now())
+}
+
+model Notification {
+  id String @id @default(uuid())
+
+  title   String
+  message String
+
+  receiverType String
+  receiverId   String
+
+  isread Boolean @default(false)
+
+  created DateTime @default(now())
 }

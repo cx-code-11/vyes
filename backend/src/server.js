@@ -9,6 +9,8 @@ connectDB();
 
 // import routes
 import initialRoutes from './routes/initialRoutes.js';
+import order from './routes/orderRoutes.js';
+import payment from './routes/paymentRoutes.js';
 
 const app = express();
 
@@ -17,6 +19,8 @@ app.use(cors());
 app.use(express.json());
 
 // API Routes
+app.use('/payments', payment);
+app.use('/orders', order);
 app.use('/', initialRoutes);
 
 const PORT = process.env.PORT || 3000;

@@ -1,0 +1,50 @@
+ADD
+
+service location in order table / better create a sepatate table for quote
+need location column in vendor table
+need service mode col in order table
+zone table - can be used to find who is near this location / for now not needed
+enum for payment status
+
+CHANGES
+
+vendor rating default - 0 
+
+
+DB
+
+-- 1. Create a "Blank" Migration
+-- Run this command in your terminal. It tells Prisma, "I'm about to make a change that isn't in the schema file":
+
+-- Bash
+-- npx prisma migrate dev --create-only --name add_settlement_trigger
+-- 2. Edit the SQL File
+-- Prisma will create a new folder in prisma/migrations with a migration.sql file inside. It will be empty. Open it and paste your PostgreSQL trigger code:
+
+-- SQL
+-- -- 1. Create the Function
+-- CREATE OR REPLACE FUNCTION handle_new_order_payout()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     -- Logic: If order is completed, do something...
+--     RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
+-- -- 2. Create the Trigger
+-- CREATE TRIGGER on_order_completed
+-- AFTER UPDATE OF "orderStatus" ON "Order"
+-- FOR EACH ROW
+-- WHEN (NEW."orderStatus" = 'Completed')
+-- EXECUTE FUNCTION handle_new_order_payout();
+-- 3. Apply the Migration
+-- Now, tell Prisma to actually run that SQL against your database:
+
+-- Bash
+-- npx prisma migrate dev
+-- Why this is better than pgAdmin:
+-- Version Control: Your trigger code is now in your Git repository. If a teammate clones your project, they get the trigger automatically when they run migrations.
+
+-- Safety: If you ever wipe your database and run npx prisma migrate dev, Prisma will recreate the tables and the triggers in the correct order.
+
+-- Environment Sync: It ensures your Local, Staging, and Production databases all have the exact same logic.
