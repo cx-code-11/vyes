@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.loginWrapper{
+    width: 100%;
+    height: 90vh;
+}
+
+.loginContainer{
+    display: flex;
+    padding-top: 50px;
+}
+
+.contentLeft{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.contentLeftWrapper{
+    padding: 0 0 0 10vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.bannerImgContainer{
+    width: 36vw;
+    height: 60vh;
+}
+
+.bannerImgContainer>img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.pageTitleContainer{
+    width: 100%;
+    padding-top: 30px;
+}
+
+.pageTitleContainer h1{
+    font-family: "spline Sans", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 1);
+}
+
+.pageTitleContainer p{
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(110, 110, 110, 1);
+    padding: 12px 0 0 0;
+}
+
+.contentRight{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.contentRightWrapper{
+    width: 60%;
+}
+.caption{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.caption h2{
+    font-family: "Spline Sans", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 1);
+}
+.caption p{
+  font-family: "DM Sans", sans-serif;
+  font-weight: 400;
+    font-size: 16px;
+    color: rgba(142, 142, 142, 1);
+}
+
+.formBox{
+    margin-top: 50px;
+    width: 100%;
+}
+
+.label{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 1);
+    padding-top: 20px;
+}
+.input{
+    width: 100%;
+    border: 1px solid rgba(238, 238, 238, 1);
+    border-radius: 8px;
+    padding: 12px;
+    color: rgba(0, 0, 0, 1);
+    outline: none;
+    font-family: "DM Sans", sans-serif;
+    margin-top: 12px;
+}
+.input::placeholder{
+    color: rgba(170, 170, 170, 1);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8px;
+    margin: 12px 0;
+}
+
+.rememberMe>label{
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(142, 142, 142, 1);
+    padding: 0 0 0 4px;
+}
+.forgotPassword{
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(37, 99, 235, 1);
+    text-decoration: none;
+}
+
+.fillButton>button{
+    width: 100%;
+    background-color: rgba(37, 99, 235, 1);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 12px 0;
+}
+
+.fillButton>button img{
+    object-fit: contain;
+    margin-bottom: -5px;
+}
+.dividerContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 12px 0 30px 0;
+    /* border: 1px solid red; */
+}
+
+.divider{
+    width: 100%;
+    border-bottom: 1px solid rgba(238, 238, 238, 1);
+    margin-top: 20px;
+}
+
+.dividerText{
+    position: absolute;
+    top: 65%;
+    background-color: #fff;
+    color: rgba(204, 204, 204, 1);
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    padding: 0 8px;
+}
+
+.stockButton>button{
+    width: 100%;
+    color: rgba(37, 99, 235, 1);
+    background-color: #fff;
+    border: 1px solid rgba(37, 99, 235, 1);
+    border-radius: 8px;
+    padding: 8px 0;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.stockButton>button img{
+    object-fit: contain;
+}
+
+.signupLinkContainer>p{
+    font-family: "DM Sans", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: rgba(204, 204, 204, 1);
+    text-align: center;
+    padding: 16px 0;
+}
+.signupLinkContainer>p a{
+    color: rgba(37, 99, 235, 1);
+    cursor: pointer;
+}

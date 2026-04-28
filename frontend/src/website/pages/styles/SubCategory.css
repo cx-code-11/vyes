@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.servicesContainerWrapper{
+    padding: clamp(20px, 25px, 30px) clamp(16px, 4vw, 80px) clamp(30px, 40px, 50px);
+    /* position: relative; */
+}
+
+.title{
+    font-family: "Spline Sans", sans-serif;
+    font-size: clamp(28px, 32px, 36px);
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1);
+    padding: clamp(10px, 15px, 20px) 0;
+    /* position: sticky; */
+    top: 60px;
+    background-color: #fff;
+    z-index: 1;
+}
+
+/* .title.active{
+     border-bottom: 2px solid rgba(221, 221, 221, 1); 
+} */
+
+.servicesContainer {
+    /* display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(20px, 30px, 40px);*/
+    padding-top: clamp(20px, 25px, 30px);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.serviceCard {
+    /* width: clamp(280px, 300px, 320px); */
+    width: 100%;
+    height: clamp(320px, 340px, 360px);
+    border: 1px solid rgba(221, 221, 221, 1);
+    border-radius: clamp(16px, 20px, 24px);
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.15);
+    padding: clamp(32px, 36px, 38px) 0 clamp(20px, 24px, 26px) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.serviceCard:hover {
+    background-color: rgba(245, 245, 245, 1);
+    box-shadow: 3px 3px 8px 0 rgba(0, 0, 0, 0.25);
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
+.serviceCard>h3 {
+    font-family: "DM Sans", sans-serif;
+    font-size: clamp(18px, 20px, 22px);
+    font-weight: 400;
+    color: rgba(0, 0, 0, 1);
+    text-align: left;
+}
+.imgContainer{
+    width: 100%;
+    padding: 0 clamp(12px, 16px, 20px);
+}
+.imgContainer>img{
+    width: 100%;
+}
