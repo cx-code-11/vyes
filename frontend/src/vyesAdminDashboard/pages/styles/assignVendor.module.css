@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.assignVendorWrapper{
+    width: 100%;
+    height: 100%;
+    background-color: #F9FAFB;
+    padding: clamp(18px, 24px, 28px);
+}
+
+.topContainer>h2{
+    color: #111827;
+    font-size: clamp(18px, 20.4px, 22px);
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+}
+
+.customerDetails{
+    display: flex;
+    align-items: center;
+}
+
+.orderId, .serviceName, .serviceLocation{
+    color: #6B7280;
+    font-size: clamp(11px, 13.6px, 18px);
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+}
+
+.seperationDot{
+    width: 3px;
+    height: 3px;
+    border-radius: 1000px;
+    background-color: #6B7280;
+    margin: 0 8px;
+}
+
+.badgeContainer{
+    padding: 0 clamp(8px, 10px, 12px);
+}
+
+.badgeContainer>button{
+    color: #D97706;
+    font-size: clamp(6px, 8px, 10px);
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    border: none;
+    border-radius: 4px;
+    background-color: #FEF9C3;
+    padding: 3px 8px;
+}
+
+.contentContainer{
+    border: 1px solid red;
+}
+
+.vendorListWrapper{
+    border: 1.5px solid #E5E7EB;
+    border-radius: 8px;
+    width: 60%;
+    background-color: #fff;
+}
+
+.subTitleContainer{
+    border-bottom: 1.5px solid #E5E7EB;
+    padding: clamp(18px, 24px, 28px);
+}
+
+.subTitle{
+    color: #111827;
+    font-size: clamp(14px, 15.3px, 18px);
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+}
+
+.vendorListContainer{
+    padding: clamp(18px, 24px, 28px) clamp(18px, 24px, 28px) clamp(12px, 16px, 18px) clamp(18px, 24px, 28px);
+}
+

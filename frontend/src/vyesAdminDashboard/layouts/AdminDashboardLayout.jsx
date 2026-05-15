@@ -5,7 +5,7 @@ const AdminDashboardLayout = () => {
   return (
     <div style={{ display: 'flex' }}>
       <SideNav />
-      <main style={{ width: "92%"}}>
+      <main style={{ width: "100%"}}>
         <Outlet />
       </main>
     </div>

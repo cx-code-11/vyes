@@ -3,14 +3,18 @@ import { Routes, Route } from 'react-router-dom';
 // 1. Import your Layout
 import AdminLayout from '../layouts/AdminDashboardLayout';
 import Dashboard from '../pages/Dashboard';
-
+import QuoteRequested from '../pages/QuoteRequested';
+import ReviewQuoteRequest from '../pages/ReviewQuoteRequest';
+import AssignVendor from '../pages/AssignVendor';
 
 const AdminRoutes = () => {
   return (
     <Routes>
       <Route element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
-        {/* <Route path="myaccount" element={<Account />} /> */}
+        <Route path="quoteRequested" element={<QuoteRequested />} />
+        <Route path="reviewQuote" element={<ReviewQuoteRequest />} />
+        <Route path="assignVendor" element={<AssignVendor />} />
         {/* <Route path="services" element={<Services />} /> */}
         {/* <Route path="services/:serviceId" element={<div>Service Detail Page</div>} /> */}
         {/* <Route path="login" element={<Login />} /> */}

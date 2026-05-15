@@ -11,6 +11,7 @@ import Services from '../pages/SubCategory';
 import Login from '../pages/Login';
 import PartnerLogin from '../pages/PartnerLogin';
 import Signup from '../pages/Signup';
+import BecomePartner from '../pages/BecomePartner';
 
 const InitialValidationRoutes = () => {
   return (
@@ -25,6 +26,7 @@ const InitialValidationRoutes = () => {
         <Route path="signup" element={<Signup />} />
         <Route path="subCategory" element={<Services />} />
         <Route path="subCategory/:subCategoryId" element={<Service />} />
+        <Route path="becomePartner" element={<BecomePartner />} />
       </Route>
 
 

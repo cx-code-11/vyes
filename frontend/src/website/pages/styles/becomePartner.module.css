@@ -1,0 +1,212 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.becomePartnerWrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #AACEE9;
+}
+
+.becomePartnerWrapper>h1{
+    color: #111827;
+    font-size: clamp(24px, 28px, 32px);
+    font-family: "DM Sans", sans-serif;
+    font-weight: 800;
+    padding: clamp(30px, 34px, 36px) 0;
+}
+
+.becomePartnerContainer{
+    width: 70%;
+    background-color: #fff;
+    border-radius: 12px;
+    margin: 0 0 clamp(40px, 50px, 60px) 0;
+}
+
+.basicInfoContainer{
+    padding: clamp(18px, 20px, 22px) clamp(38px, 40px, 46px);
+}
+
+.titleWrapper{
+    display: flex;
+    align-items: center;
+    gap: clamp(12px, 14px, 16px);
+    padding-bottom: clamp(18px, 20px, 22px);
+}
+
+.titleWrapper>h2{
+    color: #111827;
+    font-size: clamp(12px, 14px, 16px);
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+}
+
+.iconWrapper{
+    width: 18px;
+    height: 18px;
+}
+
+.iconWrapper>img{
+    width: 100%;
+    object-fit: contain;
+}
+
+.vendorLogoWrapper{
+    /* padding: clamp(18px, 20px, 22px); */
+    display: flex;
+    align-items: center;
+    /* gap: clamp(18px, 20px, 22px); */
+}
+
+.vendorLogoContainer{
+    width: clamp(80px, 120px, 160px);
+    height: clamp(80px, 120px, 160px);
+    border-radius: 8px;
+    border: 2px solid red;
+    overflow: hidden;
+}
+
+.btnWrapper{
+    width: clamp(100px, 140px, 180px);
+    height: clamp(32px, 40px, 48px);
+    border-radius: 8px;
+    border: 2px solid red;
+    overflow: hidden;
+}
+
+.detailsWrapper{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(26px, 30px, 34px);
+    row-gap: clamp(30px, 34px, 36px);
+}
+
+.inputWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 8px, 10px);
+}
+
+.inputWrapper>label{
+    color: #374151;
+    font-size: clamp(12px, 14px, 16px);
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    padding: 0 0 4px 0;
+}
+
+.inputWrapper>input{
+    width: 100%;
+    border-radius: 8px;
+    border: 1.5px solid #D1D5DB;
+    padding: clamp(8px, 10px, 12px) clamp(12px, 14px, 16px);
+    outline: none;
+    font-size: clamp(12px, 14px, 16px);
+    color: #000;
+    font-family: 'inter', sans-serif;
+}
+
+.inputWrapper>input::placeholder{
+    color: #ccc;
+    font-size: clamp(12px, 14px, 16px);
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+}
+
+.addressDetailWrapper{
+    padding: clamp(30px, 34px, 36px) 0 0 0;
+}
+
+.serviceDetailsContainer{
+    padding: clamp(18px, 20px, 22px) clamp(38px, 40px, 46px);
+}
+
+.selectWrapper{
+    position: relative;
+}
+
+.selectWrapper>select{
+    width: 100%;
+    border-radius: 8px;
+    border: 1.5px solid #D1D5DB;
+    padding: clamp(8px, 10px, 12px) clamp(12px, 14px, 16px) ;
+    outline: none;
+    font-size: clamp(12px, 14px, 16px);
+    color: #000;
+    font-family: 'inter', sans-serif;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.arrow{
+    position: absolute;
+    right: 14px;
+    top: 30%;
+    width: 16px;
+    height: 16px;
+
+    pointer-events: none;
+}
+
+.arrow>img{
+    width: 100%;
+    object-fit: contain;
+}
+
+.addServiceButton{
+    padding: 16px 0 0 0;
+    background-color: transparent;
+    border: none;
+    color: #2563EB;
+    cursor: pointer;
+}
+
+.bankDetailsContainer{
+    padding: clamp(18px, 20px, 22px) clamp(38px, 40px, 46px);
+}
+
+.verificationContainer{
+    padding: clamp(18px, 20px, 22px) clamp(38px, 40px, 46px);
+}
+
+.buttonsWrapper{
+    width: 100%;
+    background-color: #F9FAFB;
+    padding: clamp(22px, 26px, 30px) clamp(38px, 40px, 46px) clamp(22px, 26px, 30px) clamp(38px, 40px, 46px);
+}
+
+.buttonsContainer{
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.cancelButton{
+    padding: clamp(8px, 10px, 12px) clamp(12px, 14px, 16px);
+    border-radius: 8px;
+    border: 1.5px solid #D1D5DB;
+    background-color: transparent;
+    color: #000;
+    font-size: clamp(12px, 14px, 16px);
+    font-family: 'inter', sans-serif;
+    margin-right: clamp(12px, 14px, 16px);
+    cursor: pointer;
+}
+
+.submitButton{
+    padding: clamp(8px, 10px, 12px) clamp(18px, 20px, 24px);
+    border-radius: 8px;
+    border: none;
+    background-color: #2563EB;
+    color: #fff;
+    font-size: clamp(12px, 14px, 16px);
+    font-family: 'inter', sans-serif;
+    cursor: pointer;
+}
