@@ -12,6 +12,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: width 0.3s ease;
 }
 
 .sideNavContainer{
@@ -31,6 +32,11 @@
 .logoContainer img{
     width: 80%;
     object-fit: contain;
+    transition: 0.2s ease;
+}
+
+.collapsedLogo{
+    padding: 10px;
 }
 
 .navLinksContainer{
@@ -45,15 +51,17 @@
     margin: clamp(10px, 12px, 20px) 0;
 }
 
-.linkContainer:hover>.navText{
+.linkContainer:hover>.navText, .linkContainer:hover .navIcon{
     color: rgba(37, 99, 235, 1);
 }
 
 .selectedIndication{
     width: 6px;
     height: 100%;
-    background-color: rgba(37, 99, 235, 1);
     border-radius: 0 8px 8px 0 / 0 6px 6px 0;
+    background: transparent;
+    transition: 0.2s ease;
+    margin: 0 6px 0 0;
 }
 
 .iconContainer{
@@ -62,20 +70,10 @@
     margin: 0 clamp(8px, 12px, 16px);
 }
 
-/* Default state */
-.myIcon, .myIcon path {
-  stroke: #94A3B8; /* Or define it on the path as shown above */
-  transition: stroke 0.3s ease; /* Optional: smooth color change */
-}
-
-/* Selected state */
-.myIcon.selected {
-  stroke: blue; /* The new color when selected */
-}
-
-/* Sometimes you need to target the path directly if the SVG has complex grouping */
-.myIcon.selected path {
-  stroke: blue;
+.navIcon{
+    width: 100%;
+    color: #A2A2A2;
+    transition: 0.2s ease;
 }
 
 .navText{
@@ -84,6 +82,26 @@
     font-weight: 500;
     color: rgba(148, 163, 184, 1);
     text-decoration: none;
+    transition: 0.2s ease;
+    opacity: 1;
+}
+
+.hideText{
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+}
+
+.collapsed{
+    width:clamp(70px, 5vw, 80px);
+}
+
+.activeLink .navIcon, .activeLink .navText{
+    color: #2563EB;
+}
+
+.activeLink .selectedIndication{
+    background: #2563EB;
 }
     
 .accountContainer{
@@ -98,7 +116,7 @@
     padding: 26px 0 26px 12px;
 }
 
-.notificationContainer:hover>.navText{
+.notificationContainer:hover>.navText, .notificationContainer:hover .navIcon{
     color: rgba(37, 99, 235, 1);
 }
 

@@ -40,6 +40,35 @@ model Vendor {
   bankDetail         Bank[]
 }
 
+enum VendorRegistrationStatus {
+  Pending
+  Reviewed
+  Approved
+  Rejected
+}
+
+model VendorRegistrationRequest {
+  id                 String                        @id @default(uuid())
+  uiId               String                        @unique
+  isActive           Boolean                       @default(true)
+  created            DateTime                      @default(now())
+  updated            DateTime                      @updatedAt
+  status             VendorRegistrationStatus      @default(Pending)
+  businessName       String
+  contactPerson      String
+  email              String
+  phone              String
+  address            String
+  accountHolderName  String
+  accountNumber      String
+  ifscCode           String
+  upiId              String
+  gstNumber          String?
+  aadhar             String
+  pan                String
+  services           Json
+}
+
 model VendorService {
   id String @id @default(uuid())
 

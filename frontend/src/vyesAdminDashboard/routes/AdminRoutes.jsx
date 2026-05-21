@@ -6,6 +6,8 @@ import Dashboard from '../pages/Dashboard';
 import QuoteRequested from '../pages/QuoteRequested';
 import ReviewQuoteRequest from '../pages/ReviewQuoteRequest';
 import AssignVendor from '../pages/AssignVendor';
+import BecomePartner from '../pages/BecomePartner';
+import VendorDetailsOutlet from '../pages/VendorDetailsOutlet';
 
 const AdminRoutes = () => {
   return (
@@ -15,6 +17,8 @@ const AdminRoutes = () => {
         <Route path="quoteRequested" element={<QuoteRequested />} />
         <Route path="reviewQuote" element={<ReviewQuoteRequest />} />
         <Route path="assignVendor" element={<AssignVendor />} />
+        <Route path="becomePartner" element={<BecomePartner />} />
+        <Route path="vendorDetails/*" element={<VendorDetailsOutlet />} />
         {/* <Route path="services" element={<Services />} /> */}
         {/* <Route path="services/:serviceId" element={<div>Service Detail Page</div>} /> */}
         {/* <Route path="login" element={<Login />} /> */}

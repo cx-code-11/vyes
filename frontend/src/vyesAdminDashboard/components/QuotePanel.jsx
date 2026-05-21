@@ -4,33 +4,58 @@ import quoteImg from '../assets/quoteImg.png';
 
 import styles from './styles/quotePanel.module.css';
 
-const QuotePanel = () => {
+const QuotePanel = ({ request }) => {
+  const serviceSummary = request?.services?.length
+    ? request.services.map((service) =>
+        service.selectedService === 'Other'
+          ? service.customServiceName || 'Other'
+          : service.selectedService
+      ).join(', ')
+    : 'No service information available';
+
+  const requirementText = request?.services?.length
+    ? request.services.map((service) => {
+        const serviceName = service.selectedService === 'Other'
+          ? service.customServiceName || 'Other'
+          : service.selectedService;
+        const experience = service.selectedService === 'Other'
+          ? service.customExperience
+          : service.experience;
+        const description = service.customDescription || '';
+        return `${serviceName}${experience ? ` – ${experience}` : ''}${description ? `: ${description}` : ''}`;
+      }).join(' | ')
+    : 'No requirement details available';
+
+  const formattedDate = request?.created
+    ? new Date(request.created).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })
+    : 'Not available';
+
   return (
     <div className={styles.quotePanelWrapper}>
         <div className={styles.titleContainer}>
             <h3>Customer Requirement</h3>
             <div className={styles.badgeContainer}>
-                <button>new</button>
+                <button>{request ? 'new' : 'empty'}</button>
             </div>
         </div>
         
         <div className={styles.serviceDetailContainer1}>
             <div className={styles.dataContainer}>
                 <p className={styles.dataTitle}>Customer</p>
-                <p className={styles.dataValue1}>Rajesh Kumar</p>
-                <p className={styles.dataValue2}>+91 98765 43210</p>
+                <p className={styles.dataValue1}>{request?.contactPerson || 'Rajesh Kumar'}</p>
+                <p className={styles.dataValue2}>{request?.phone || '+91 98765 43210'}</p>
             </div>
             <div className={styles.dataContainer}>
                 <p className={styles.dataTitle}>Service Category</p>
-                <p className={styles.dataValue1}>AC Deep Cleaning & Service</p>
+                <p className={styles.dataValue1}>{serviceSummary}</p>
             </div>
             <div className={styles.dataContainer}>
                 <p className={styles.dataTitle}>Address</p>
-                <p className={styles.dataValue1}>12, 4th Cross, Thillai Nagar, Trichy</p>
+                <p className={styles.dataValue1}>{request?.address || '12, 4th Cross, Thillai Nagar, Trichy'}</p>
             </div>
             <div className={styles.dataContainer}>
                 <p className={styles.dataTitle}>Date & Time</p>
-                <p className={styles.dataValue1}>12/01/2026 | 11:00 AM</p>
+                <p className={styles.dataValue1}>{formattedDate}</p>
             </div>
         </div>
 
@@ -38,7 +63,7 @@ const QuotePanel = () => {
             <div className={styles.dataContainer}>
                 <p className={styles.dataTitle}>Requirement</p>
                 <div className={styles.noteContainer}>
-                    <p className={styles.noteValue}>Two split AC units need deep cleaning. One is making noise.</p>
+                    <p className={styles.noteValue}>{requirementText}</p>
                 </div>
             </div>
         </div>

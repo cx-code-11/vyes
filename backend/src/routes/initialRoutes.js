@@ -3,8 +3,76 @@ import prisma from '../config/db.js';
 
 const router = express.Router();
 
+const generateUiId = () => `VR-${Math.floor(10000 + Math.random() * 90000)}`;
+
 router.get('/', (req, res) => {
   res.json({ message: 'Hello from the API!' });
+});
+
+router.post('/vendor-registration', async (req, res) => {
+  try {
+    const {
+      businessName,
+      contactPerson,
+      email,
+      phone,
+      address,
+      accountHolderName,
+      accountNumber,
+      ifscCode,
+      upiId,
+      gstNumber,
+      aadhar,
+      pan,
+      services
+    } = req.body;
+
+    if (!businessName || !contactPerson || !email || !phone || !address || !accountHolderName || !accountNumber || !ifscCode || !upiId || !aadhar || !pan || !Array.isArray(services)) {
+      return res.status(400).json({ error: 'Missing required registration fields' });
+    }
+
+    const existingUiId = await prisma.vendorRegistrationRequest.findUnique({
+      where: { uiId: generateUiId() }
+    });
+
+    const uiId = existingUiId ? `VR-${Date.now()}` : generateUiId();
+
+    const newRegistration = await prisma.vendorRegistrationRequest.create({
+      data: {
+        uiId,
+        businessName,
+        contactPerson,
+        email,
+        phone,
+        address,
+        accountHolderName,
+        accountNumber,
+        ifscCode,
+        upiId,
+        gstNumber,
+        aadhar,
+        pan,
+        services
+      }
+    });
+
+    res.status(201).json({ message: 'Registration request saved', data: newRegistration });
+  } catch (error) {
+    console.error('Save Registration Error:', error);
+    res.status(500).json({ error: 'Could not save registration request' });
+  }
+});
+
+router.get('/vendor-registration', async (req, res) => {
+  try {
+    const requests = await prisma.vendorRegistrationRequest.findMany({
+      orderBy: { created: 'desc' }
+    });
+    res.json(requests);
+  } catch (error) {
+    console.error('Fetch Vendor Registrations Error:', error);
+    res.status(500).json({ error: 'Could not load registration requests' });
+  }
 });
 
 // router.post('/register', async (req, res) => {

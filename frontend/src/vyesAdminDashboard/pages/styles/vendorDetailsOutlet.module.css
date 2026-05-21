@@ -1,0 +1,381 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+
+.mainContent {
+  padding: 32px;
+  background-color: #f8fafc;
+  overflow-y: auto;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+.header {
+  background: none;
+}
+
+.pageTitle {
+  padding: 0 0 26px 0;
+  font-size: clamp(18px, 20.4px, 22px);
+  font-weight: 700;
+  color: #111827;
+}
+
+/* Banner Hero Container Elements */
+.heroCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.heroLeft {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.heroIconBox {
+  width: 56px;
+  height: 56px;
+  background-color: #eff6ff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dbeafe;
+}
+
+.heroIcon {
+  width: 28px;
+  height: 28px;
+  color: #2563eb;
+}
+
+.heroTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.vendorHeading {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.statusBadgeHero {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #fef3c7;
+  color: #d97706;
+  padding: 6px 15px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.statusDotHero {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #d97706;
+}
+
+.heroMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.bullet {
+  color: #cbd5e1;
+}
+
+.metaTime {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaTimeIcon {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+}
+
+/* Flex Column Layout Framework */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.leftColumn, .rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background-color: #F8FAFC;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-top: 0;
+  border-bottom: 1px solid #f1f5f9;
+  padding: 24px 24px 24px 24px;
+}
+
+/* Base Data Block Segments */
+.basicInfoGrid {
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+  background-color: #ffffff;
+}
+
+.fullWidthField {
+  grid-column: span 2;
+}
+
+.verticalFields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fieldRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.fieldIcon {
+  font-size: 16px;
+  padding-top: 2px;
+}
+
+.fieldIconSec {
+  font-size: 16px;
+  color: #94a3b8;
+  opacity: 0.8;
+  padding-top: 2px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 14px;
+  color: #64748B;
+  font-weight: 400;
+  padding-bottom: 4px;
+}
+
+.fieldValue {
+  font-size: 14px;
+  color: #0F172A;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.fieldValueSec {
+  font-size: 14px;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Split Service Section Styles */
+.serviceRowsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 24px;
+}
+
+.serviceSplitRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 16px;
+}
+
+.labelWithTagContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.labelWithTagContainer .fieldLabel {
+  margin-bottom: 0;
+}
+
+.inlineOtherTag {
+  background-color: #d0eddb;
+  color: #16A34A;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border: 1.5px solid #22C55E;
+  border-radius: 4px;
+}
+
+.descriptionRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+.fieldLabelDesc {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.descriptionText {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Document List Elements */
+.docList {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 12px 24px 0px 24px;
+}
+
+.docRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.docRow:last-child {
+  border-bottom: none;
+}
+
+.docLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.docIconBox {
+  font-size: 20px;
+}
+
+.docName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.docStatusText {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 0;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.statusVerified {
+  color: #16a34a;
+}
+
+.docActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.docActionBtn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  color: #64748b;
+  transition: background-color 0.2s;
+}
+
+.docActionBtn:hover {
+  background-color: #f1f5f9;
+}
+
+/* Right Fixed Control Button Interface */
+
+.verticalFields{
+  padding: 24px;
+  background-color: #ffffff;
+}
+
+.actionPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.actionPanel button {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btnIconSpan {
+  font-size: 14px;
+}
+
+.btnReject {
+  background-color: #ffffff;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+}
+
+.btnReject:hover {
+  background-color: #fef2f2;
+}
+
+.btnApprove {
+  background-color: #2563eb;
+  border: 1px solid #2563eb;
+  color: #ffffff;
+}
+
+.btnApprove:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}

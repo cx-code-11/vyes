@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -57,10 +57,8 @@
 }
 
 .vendorLogoWrapper{
-    /* padding: clamp(18px, 20px, 22px); */
     display: flex;
     align-items: center;
-    /* gap: clamp(18px, 20px, 22px); */
 }
 
 .vendorLogoContainer{
@@ -209,4 +207,235 @@
     font-size: clamp(12px, 14px, 16px);
     font-family: 'inter', sans-serif;
     cursor: pointer;
+} */
+
+/* style.module.css */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 40px 0;
+}
+
+.modalContent {
+  background: #ffffff;
+  width: 100%;
+  max-width: 700px;
+  height: 90vh; /* Limits height so we can scroll inside */
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1a1a1a;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+}
+
+.formBody {
+  padding: 24px;
+  overflow-y: auto; /* Enables scrolling for the form content */
+  flex-grow: 1;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.logoUploadSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.logoPlaceholder {
+  width: 80px;
+  height: 80px;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+.briefcaseIcon {
+  font-size: 24px;
+  color: #bbb;
+}
+
+.uploadBtn {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.uploadHint {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.inputGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.emptyCol {
+  flex: 1; /* Used to keep 50% width inputs aligned properly */
+}
+
+.inputGroup label {
+  font-size: 13px;
+  color: #4a4a4a;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  padding: 10px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.inputGroup input::placeholder,
+.inputGroup textarea::placeholder {
+  color: #aaa;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus,
+.inputGroup textarea:focus {
+  border-color: #2563eb;
+}
+
+.inputGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Dynamic Service Block Styling */
+.serviceItem {
+  margin-bottom: 16px;
+}
+
+.customServiceBlock {
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.subTitle {
+  font-size: 14px;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.addServiceBtn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 500;
+}
+
+.addServiceBtn:hover {
+  text-decoration: underline;
+}
+
+/* Footer Buttons */
+.footer {
+  padding: 16px 24px;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: #fff;
+}
+
+.cancelBtn {
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #4a4a4a;
+  font-weight: 500;
+}
+
+.createBtn {
+  background: #2563eb;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+}
+
+.createBtn:hover {
+  background: #1d4ed8;
 }

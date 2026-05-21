@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+
+
+.mainContent {
+  flex: 1;
+  padding: 32px;
+  background-color: #f9fafb;
+  overflow-y: auto;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+/* Header UI Elements */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  background: none;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.searchWrapper {
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #9ca3af;
+}
+
+.searchInput {
+  padding-left: 40px;
+  padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  width: 320px;
+  font-size: 14px;
+  color: #111827;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.actionButton {
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.actionButton:hover {
+  background-color: #f9fafb;
+}
+
+.btnIcon {
+  width: 20px;
+  height: 20px;
+  color: #4b5563;
+}
+
+/* Table Design setup */
+.tableCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableHeaderRow {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.th {
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.tableBodyRow {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s;
+}
+
+.tableBodyRow:hover {
+  background-color: rgba(249, 250, 251, 0.7);
+}
+
+.td {
+  padding: 16px 24px;
+  vertical-align: middle;
+}
+
+/* Row Internal Segments */
+.vendorCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vendorAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.vendorName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 15px;
+}
+
+.vendorPhone {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* Row Badges */
+
+
+.avatarPurple { background-color: #f3e8ff; color: #7e22ce; }
+.avatarGreen { background-color: #dcfce7; color: #15803d; }
+.avatarYellow { background-color: #fef9c3; color: #a16207; }
+.avatarBlue { background-color: #dbeafe; color: #1d4ed8; }
+.avatarTeal { background-color: #ccfbf1; color: #0f766e; }
+
+.locationContainer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4b5563;
+  font-size: 14px;
+}
+
+.locationIcon {
+  width: 16px;
+  height: 16px;
+  color: #9ca3af;
+}
+
+.dateText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.timeText {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* Row Status Settings */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  border: 1.5px solid transparent;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.statusPending {
+  background-color: #FFFBEB;
+  color: #B45309;
+  border-color: #FDE68A;
+}
+
+.statusReview {
+  background-color: #eff6ff;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+}
+
+/* Action Trigger Elements */
+.reviewButton {
+  padding: 8px 18px;
+  border: 1.5px solid #2563eb;
+  color: #2563eb;
+  background-color: transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.reviewButton:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+}
