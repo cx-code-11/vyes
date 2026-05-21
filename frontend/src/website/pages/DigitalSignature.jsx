@@ -6,7 +6,6 @@ import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import { Eraser, Download, MapPin } from 'lucide-react';
 import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
 
 const steps = [
   { name: 'Registration' },
@@ -17,11 +16,13 @@ const steps = [
 
 export function DigitalSignature() {
   const navigate = useNavigate();
-  const sigCanvas = useRef({});
+  const sigCanvas = useRef(null);
   const [location, setLocation] = useState(null);
   const [timestamp, setTimestamp] = useState('');
   const [vendorData, setVendorData] = useState({});
   const [isGenerating, setIsGenerating] = useState(false);
+
+  const vendorName = vendorData.businessName || vendorData.companyName || 'Vendor';
 
   useEffect(() => {
     const data = localStorage.getItem('vendorData');
@@ -44,78 +45,84 @@ export function DigitalSignature() {
   };
 
   const generatePDF = async () => {
-    if (sigCanvas.current.isEmpty()) {
+    if (!sigCanvas.current || sigCanvas.current.isEmpty()) {
       alert("Please provide a signature first.");
       return;
     }
 
     setIsGenerating(true);
-    const pdfContent = document.createElement('div');
     try {
       const sigData = sigCanvas.current.getCanvas().toDataURL('image/png');
-      
-      // Create a temporary div for PDF generation to perfectly format it
-      pdfContent.style.position = 'absolute';
-      pdfContent.style.top = '-9999px';
-      pdfContent.style.left = '-9999px';
-      pdfContent.style.width = '800px';
-      pdfContent.style.backgroundColor = 'white';
-      pdfContent.innerHTML = `
-        <div style="padding: 40px; font-family: sans-serif; color: #333;">
-          <h2 style="text-align: center;">MASTER SERVICE AGREEMENT</h2>
-          <p>This Master Service Agreement is made and entered into on <strong>${new Date().toLocaleDateString()}</strong> by and between:</p>
-          <p><strong>Vyess FMS</strong> and <strong>${vendorData.companyName || 'Vendor'}</strong></p>
-          <p style="margin-top: 20px;"><strong>Address:</strong> ${vendorData.address || ''}</p>
-          <h3 style="margin-top: 30px;">1. SCOPE OF SERVICES</h3>
-          <p>The Service Provider agrees to provide the services as requested by the Company.</p>
-          <h3 style="margin-top: 20px;">2. PAYMENT TERMS</h3>
-          <p>Payment shall be made within 30 days of receipt of an undisputed invoice.</p>
-          
-          <div style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 20px;">
-            <p>IN WITNESS WHEREOF, the parties hereto have executed this Agreement.</p>
-            <div style="display: flex; justify-content: space-between; margin-top: 40px;">
-              <div>
-                <p><strong>For Vyess FMS</strong></p>
-                <div style="height: 80px; width: 200px; background: #f9f9f9; display: flex; align-items: center; justify-content: center; color: #999;">
-                  Auto-signed via System
-                </div>
-              </div>
-              <div>
-                <p><strong>For ${vendorData.companyName || 'Vendor'}</strong></p>
-                <img src="${sigData}" style="max-height: 80px; max-width: 200px;" />
-                <p style="font-size: 12px; color: #666; margin: 2px 0;">Signed by: ${vendorData.contactPerson || ''}</p>
-                <p style="font-size: 12px; color: #666; margin: 2px 0;">Time: ${timestamp}</p>
-                ${location ? `<p style="font-size: 12px; color: #666; margin: 2px 0;">Loc: ${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}</p>` : ''}
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-      document.body.appendChild(pdfContent);
-      
-      const canvas = await html2canvas(pdfContent, { scale: 2 });
-      const imgData = canvas.toDataURL('image/png');
-      
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`${vendorData.companyName?.replace(/\s+/g, '_') || 'Vendor'}_Agreement.pdf`);
-      
-      // Navigate to success page
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const leftMargin = 20;
+      let currentY = 20;
+
+      pdf.setFont('helvetica', 'bold');
+      pdf.setFontSize(18);
+      pdf.text('MASTER SERVICE AGREEMENT', pageWidth / 2, currentY, { align: 'center' });
+      currentY += 14;
+
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(11);
+      const textLines = [
+        `This Master Service Agreement is made and entered into on ${new Date().toLocaleDateString()} by and between:`,
+        '',
+        `Vyess FMS and ${vendorName}`,
+        '',
+        `Address: ${vendorData.address || ''}`,
+        '',
+        '1. SCOPE OF SERVICES',
+        'The Service Provider agrees to provide the services as requested by the Company.',
+        '',
+        '2. PAYMENT TERMS',
+        'Payment shall be made within 30 days of receipt of an undisputed invoice.',
+        '',
+        'IN WITNESS WHEREOF, the parties hereto have executed this Agreement.',
+        '',
+        `For ${vendorName}`,
+        `Signed by: ${vendorData.contactPerson || ''}`,
+        `Time: ${timestamp}`,
+      ];
+      if (location) {
+        textLines.push(`Loc: ${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`);
+      }
+
+      textLines.forEach((line) => {
+        if (!line) {
+          currentY += 8;
+          return;
+        }
+        const splitText = pdf.splitTextToSize(line, pageWidth - leftMargin * 2);
+        pdf.text(splitText, leftMargin, currentY);
+        currentY += splitText.length * 7;
+      });
+
+      if (currentY + 70 > pdf.internal.pageSize.getHeight()) {
+        pdf.addPage();
+        currentY = 20;
+      }
+
+      const sigWidth = 80;
+      const sigHeight = 40;
+      const sigX = pageWidth - leftMargin - sigWidth;
+      const sigY = currentY + 10;
+      pdf.addImage(sigData, 'PNG', sigX, sigY, sigWidth, sigHeight);
+      pdf.setFontSize(10);
+      pdf.text(`Signed by: ${vendorData.contactPerson || ''}`, leftMargin, sigY + sigHeight + 10);
+      pdf.text(`Time: ${timestamp}`, leftMargin, sigY + sigHeight + 16);
+      if (location) {
+        pdf.text(`Loc: ${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`, leftMargin, sigY + sigHeight + 22);
+      }
+
+      pdf.save(`${vendorName.replace(/\s+/g, '_') || 'Vendor'}_Agreement.pdf`);
       setTimeout(() => {
         navigate('/pending');
       }, 1500);
-      
     } catch (error) {
       console.error("Error generating PDF:", error);
       alert("Failed to generate PDF. Please try again.");
       setIsGenerating(false);
-    } finally {
-      if (document.body.contains(pdfContent)) {
-        document.body.removeChild(pdfContent);
-      }
     }
   };
 

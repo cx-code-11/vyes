@@ -5,6 +5,22 @@ const router = express.Router();
 
 const generateUiId = () => `VR-${Math.floor(10000 + Math.random() * 90000)}`;
 
+const generateUniqueUiId = async () => {
+  let uiId = generateUiId();
+  let existing = await prisma.vendorRegistrationRequest.findUnique({
+    where: { uiId }
+  });
+
+  while (existing) {
+    uiId = generateUiId();
+    existing = await prisma.vendorRegistrationRequest.findUnique({
+      where: { uiId }
+    });
+  }
+
+  return uiId;
+};
+
 router.get('/', (req, res) => {
   res.json({ message: 'Hello from the API!' });
 });
@@ -31,11 +47,7 @@ router.post('/vendor-registration', async (req, res) => {
       return res.status(400).json({ error: 'Missing required registration fields' });
     }
 
-    const existingUiId = await prisma.vendorRegistrationRequest.findUnique({
-      where: { uiId: generateUiId() }
-    });
-
-    const uiId = existingUiId ? `VR-${Date.now()}` : generateUiId();
+    const uiId = await generateUniqueUiId();
 
     const newRegistration = await prisma.vendorRegistrationRequest.create({
       data: {
@@ -59,7 +71,11 @@ router.post('/vendor-registration', async (req, res) => {
     res.status(201).json({ message: 'Registration request saved', data: newRegistration });
   } catch (error) {
     console.error('Save Registration Error:', error);
-    res.status(500).json({ error: 'Could not save registration request' });
+    res.status(500).json({
+      error: error.message || 'Could not save registration request',
+      code: error.code || null,
+      meta: error.meta || null
+    });
   }
 });
 
@@ -72,6 +88,24 @@ router.get('/vendor-registration', async (req, res) => {
   } catch (error) {
     console.error('Fetch Vendor Registrations Error:', error);
     res.status(500).json({ error: 'Could not load registration requests' });
+  }
+});
+
+router.get('/vendor-registration/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const request = await prisma.vendorRegistrationRequest.findUnique({
+      where: { id }
+    });
+    
+    if (!request) {
+      return res.status(404).json({ error: 'Registration not found' });
+    }
+    
+    res.json(request);
+  } catch (error) {
+    console.error('Fetch Single Registration Error:', error);
+    res.status(500).json({ error: 'Could not load registration details' });
   }
 });
 

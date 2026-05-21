@@ -1,17 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-// 1. Import your Layout
 import WebsiteLayout from '../layouts/WebsiteLayout';
-
-// 2. Import your Pages (Create these if they don't exist yet!)
-import Home from '../pages/Home';
-// import Account from '../pages/Account';
-import Service from '../pages/Service';
-import Services from '../pages/SubCategory';
-import Login from '../pages/Login';
-import PartnerLogin from '../pages/PartnerLogin';
-import Signup from '../pages/Signup';
-import BecomePartner from '../pages/BecomePartner';
 
 import { VendorRegistration } from '../pages/VendorRegistration';
 import { DocumentUpload } from '../pages/DocumentUpload';
@@ -19,7 +8,6 @@ import { AgreementPreview } from '../pages/AgreementPreview';
 import { DigitalSignature } from '../pages/DigitalSignature';
 import { VerificationPending } from '../pages/VerificationPending';
 import { VendorApproved } from '../pages/VendorApproved';
-// import { AdminDashboard } from '../pages/AdminDashboard';
 
 const InitialValidationRoutes = () => {
   return (
@@ -33,7 +21,6 @@ const InitialValidationRoutes = () => {
             <Route path="/sign" element={<DigitalSignature />} />
             <Route path="/pending" element={<VerificationPending />} />
             <Route path="/approved" element={<VendorApproved />} />
-            {/* <Route path="/admin" element={<AdminDashboard />} /> */}
             <Route path="*" element={<div>404 - Page Not Found on Vyess Website</div>} />
           </Routes>
         </main>

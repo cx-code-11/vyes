@@ -1,265 +1,43 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles/becomePartner.module.css';
 
-const partnersData = [
-  {
-    id: 1,
-    initials: 'CA',
-    avatarClass: styles.avatarPurple,
-    name: 'Cool Air Tech',
-    phone: '+91 98765 43210',
-    service: 'AC Service',
-    serviceClass: styles.serviceBlue,
-    location: 'T. Nagar, Chennai',
-    experience: '5 Years',
-    date: 'Mar 12, 2026',
-    time: '10:24 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 2,
-    initials: 'TP',
-    avatarClass: styles.avatarGreen,
-    name: 'Trichy Plumbing Works',
-    phone: '+91 98765 43211',
-    service: 'Plumbing',
-    serviceClass: styles.serviceTeal,
-    location: 'Srirangam, Trichy',
-    experience: '8 Years',
-    date: 'Mar 12, 2026',
-    time: '09:15 AM',
-    status: 'Under Review',
-    statusClass: styles.statusReview,
-  },
-  {
-    id: 3,
-    initials: 'SE',
-    avatarClass: styles.avatarYellow,
-    name: 'Spark Electricals',
-    phone: '+91 98765 43212',
-    service: 'Electrical',
-    serviceClass: styles.serviceOrange,
-    location: 'Anna Nagar, Chennai',
-    experience: '3 Years',
-    date: 'Mar 11, 2026',
-    time: '04:30 PM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 4,
-    initials: 'GC',
-    avatarClass: styles.avatarBlue,
-    name: 'Green Clean Services',
-    phone: '+91 98765 43213',
-    service: 'Deep Cleaning',
-    serviceClass: styles.serviceGreen,
-    location: 'Velachery, Chennai',
-    experience: '6 Years',
-    date: 'Mar 11, 2026',
-    time: '02:45 PM',
-    status: 'Under Review',
-    statusClass: styles.statusReview,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-  {
-    id: 5,
-    initials: 'RH',
-    avatarClass: styles.avatarTeal,
-    name: 'Rajesh Home Solutions',
-    phone: '+91 98765 43214',
-    service: 'Home Services',
-    serviceClass: styles.servicePurple,
-    location: 'Adyar, Chennai',
-    experience: '10 Years',
-    date: 'Mar 10, 2026',
-    time: '11:20 AM',
-    status: 'Pending',
-    statusClass: styles.statusPending,
-  },
-];
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+
+const getInitials = (name) => {
+  if (!name) return '??';
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + (parts[1][0] || '')).toUpperCase();
+};
 
 export default function BecomePartner() {
+  const navigate = useNavigate();
+  const [registrations, setRegistrations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchRegistrations = async () => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/vendor-registration`);
+        const data = await response.json();
+        if (!response.ok) {
+          setError(data.error || 'Unable to load registrations');
+          return;
+        }
+        setRegistrations(data);
+      } catch (err) {
+        console.error('Fetch registrations error:', err);
+        setError('Unable to load registrations');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRegistrations();
+  }, []);
+
   return (
     <div className={styles.mainContent}>
       {/* Top Header Controls */}
@@ -272,7 +50,6 @@ export default function BecomePartner() {
             </svg>
             <input type="text" placeholder="Search records..." className={styles.searchInput} />
           </div>
-          {/* Filter/Action Buttons */}
           <button className={styles.actionButton}>
             <svg className={styles.btnIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
@@ -286,7 +63,8 @@ export default function BecomePartner() {
         </div>
       </header>
 
-      {/* Main Records Table Card */}
+      {error && <div className={styles.errorBox}>{error}</div>}
+
       <div className={styles.tableCard}>
         <table className={styles.table}>
           <thead>
@@ -299,43 +77,55 @@ export default function BecomePartner() {
             </tr>
           </thead>
           <tbody>
-            {partnersData.map((partner) => (
-              <tr key={partner.id} className={styles.tableBodyRow}>
-                <td className={styles.td}>
-                  <div className={styles.vendorCell}>
-                    <div className={`${styles.vendorAvatar} ${partner.avatarClass}`}>
-                      {partner.initials}
-                    </div>
-                    <div>
-                      <div className={styles.vendorName}>{partner.name}</div>
-                      <div className={styles.vendorPhone}>{partner.phone}</div>
-                    </div>
-                  </div>
-                </td>
-                <td className={styles.td}>
-                  <div className={styles.locationContainer}>
-                    <svg className={styles.locationIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    {partner.location}
-                  </div>
-                </td>
-                <td className={styles.td}>
-                  <div className={styles.dateText}>{partner.date}</div>
-                  <div className={styles.timeText}>{partner.time}</div>
-                </td>
-                <td className={styles.td}>
-                  <span className={`${styles.statusBadge} ${partner.statusClass}`}>
-                    <span className={styles.statusDot}></span>
-                    {partner.status}
-                  </span>
-                </td>
-                <td className={styles.td} style={{ textAlign: 'center' }}>
-                  <button className={styles.reviewButton}>Review</button>
-                </td>
+            {loading ? (
+              <tr>
+                <td colSpan={5} className={styles.loadingRow}>Loading vendor registrations...</td>
               </tr>
-            ))}
+            ) : registrations.length === 0 ? (
+              <tr>
+                <td colSpan={5} className={styles.emptyRow}>No vendor registrations found.</td>
+              </tr>
+            ) : (
+              registrations.map((partner) => (
+                <tr key={partner.id} className={styles.tableBodyRow}>
+                  <td className={styles.td}>
+                    <div className={styles.vendorCell}>
+                      <div className={`${styles.vendorAvatar} ${styles.avatarTeal}`}>
+                        {getInitials(partner.businessName)}
+                      </div>
+                      <div>
+                        <div className={styles.vendorName}>{partner.businessName}</div>
+                        <div className={styles.vendorPhone}>{partner.phone}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className={styles.td}>
+                    <div className={styles.locationContainer}>
+                      <svg className={styles.locationIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {partner.address || 'N/A'}
+                    </div>
+                  </td>
+                  <td className={styles.td}>
+                    <div className={styles.dateText}>{new Date(partner.created).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+                    <div className={styles.timeText}>{new Date(partner.created).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</div>
+                  </td>
+                  <td className={styles.td}>
+                    <span className={`${styles.statusBadge} ${partner.status === 'Approved' ? styles.statusApproved : partner.status === 'Rejected' ? styles.statusRejected : styles.statusPending}`}>
+                      <span className={styles.statusDot}></span>
+                      {partner.status}
+                    </span>
+                  </td>
+                  <td className={styles.td} style={{ textAlign: 'center' }}>
+                    <button className={styles.reviewButton} onClick={() => navigate(`/vendorDetails/${partner.id}`, { state: { registration: partner } })}>
+                      Review
+                    </button>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

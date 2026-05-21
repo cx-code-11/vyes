@@ -221,6 +221,34 @@
   border-color: #BFDBFE;
 }
 
+.statusApproved {
+  background-color: #ecfdf5;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.statusRejected {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border-color: #fecaca;
+}
+
+.errorBox {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #991b1b;
+  background-color: #fef2f2;
+}
+
+.loadingRow,
+.emptyRow {
+  padding: 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
 /* Action Trigger Elements */
 .reviewButton {
   padding: 8px 18px;
