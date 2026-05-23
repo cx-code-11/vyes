@@ -119,7 +119,7 @@ export default function BecomePartner() {
                     </span>
                   </td>
                   <td className={styles.td} style={{ textAlign: 'center' }}>
-                    <button className={styles.reviewButton} onClick={() => navigate(`/vendorDetails/${partner.id}`, { state: { registration: partner } })}>
+                    <button className={styles.reviewButton} onClick={() => navigate(`/admin/vendorDetails/${partner.id}`, { state: { registration: partner } })}>
                       Review
                     </button>
                   </td>

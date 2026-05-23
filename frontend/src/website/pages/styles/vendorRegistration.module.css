@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wholeWrapper {
+    width: 100vw;
+  background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Container & Layout */
+.container {
+  font-family: "Inter", sans-serif;
+  margin: 3rem 0;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+
+
+/* Header Elements */
+.headerSection {
+  padding-bottom: 2.5rem; /* mb-10 */
+}
+
+.pageTitle {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700;
+  color: #0f172a; /* text-slate-900 */
+  padding: 30px 0 0 0 ;
+}
+
+.pageSubtitle {
+  margin-top: 0.75rem; /* mt-3 */
+  color: #475569; /* text-slate-600 */
+}
+
+.stepContainer {
+  margin-bottom: 3rem; /* mb-12 */
+}
+
+/* Alert States */
+.errorAlert {
+  background-color: #fef2f2; /* bg-red-50 */
+  border: 1px solid #fecaca; /* border-red-200 */
+  color: #b91c1c; /* text-red-700 */
+  padding: 1rem;
+  border-radius: 0.375rem; /* rounded-md */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+/* Form Grouping & Layout */
+.formSections {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* space-y-8 */
+}
+
+.grid2Col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; /* gap-6 */
+}
+
+@media (min-width: 768px) {
+  .grid2Col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.spacer {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .spacer {
+    display: block;
+  }
+}
+
+/* Typography & Titles */
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  width: 1.25rem; /* w-5 */
+  height: 1.25rem; /* h-5 */
+}
+
+/* Inputs & Labels */
+.label {
+  display: block;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  color: #334155; /* text-slate-700 */
+  margin-bottom: 0.25rem; /* mb-1 */
+}
+
+.baseInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem; /* px-3 py-2 */
+  border: 1px solid #cbd5e1; /* border-slate-300 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+  font-size: 1rem;
+  color: #0f172a;
+  background-color: #ffffff;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.baseInput:focus {
+  border-color: #3b82f6; /* ring-blue-500 */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.baseInput::placeholder {
+  color: #94a3b8;
+}
+
+.errorText {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: #dc2626; /* text-red-600 */
+}
+
+/* Service Section Specifics */
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* space-y-8 */
+}
+
+.serviceDivider {
+  padding-top: 1.5rem; /* pt-6 */
+  border-top: 1px solid #e2e8f0; /* border-slate-200 */
+}
+
+.customServiceBox {
+  margin-top: 1.5rem; /* mt-6 */
+  padding: 1rem; /* p-4 */
+  background-color: #f8fafc; /* bg-slate-50 */
+  border: 1px solid #e2e8f0; /* border-slate-200 */
+  border-radius: 0.5rem; /* rounded-lg */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* space-y-6 */
+}
+
+.customServiceTitle {
+  font-weight: 600; /* font-semibold */
+  color: #1e293b; /* text-slate-800 */
+  margin: 0;
+}
+
+.addServiceBtn {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  color: #2563eb; /* text-blue-600 */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.addServiceBtn:hover {
+  color: #1d4ed8; /* text-blue-700 */
+}
+
+.addIcon {
+  width: 1rem; /* w-4 */
+  height: 1rem; /* h-4 */
+  margin-right: 0.25rem; /* mr-1 */
+}
+
+/* Footer Section */
+.footerActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem; /* gap-4 */
+  border-top: 1px solid #f1f5f9; /* border-slate-100 */
+  padding-top: 1.5rem; /* pt-6 */
+  margin-top: 1.5rem; /* mt-6 */
+}

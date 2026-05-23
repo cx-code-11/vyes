@@ -36,8 +36,8 @@ function App() {
 
   return (
     <Routes>
-      {/* The /* is crucial so that nested routes inside these bundles resolve correctly */}
-      <Route path='/*' element={renderContent()} />
+      <Route path='/admin/*' element={<AdminRoutes />} />
+      <Route path='/*' element={<WebsiteRoutes />} />
     </Routes>
   );
 }

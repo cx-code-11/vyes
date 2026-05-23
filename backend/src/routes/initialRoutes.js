@@ -109,6 +109,40 @@ router.get('/vendor-registration/:id', async (req, res) => {
   }
 });
 
+router.post('/admin-login', async (req, res) => {
+  try {
+    const { username, phoneNumber, email, password } = req.body;
+
+    if (!password || (!username && !phoneNumber && !email)) {
+      return res.status(400).json({ error: 'username, phoneNumber, or email and password are required' });
+    }
+
+    const normalizedEmail = email?.trim().toLowerCase();
+    const normalizedPhone = phoneNumber?.replace(/\D/g, '')?.trim();
+    const normalizedUsername = username?.trim();
+
+    const admin = await prisma.admin.findFirst({
+      where: {
+        OR: [
+          normalizedUsername ? { username: normalizedUsername } : undefined,
+          normalizedPhone ? { phoneNumber: normalizedPhone } : undefined,
+          normalizedEmail ? { email: normalizedEmail } : undefined,
+        ].filter(Boolean),
+      },
+    });
+
+    if (!admin || admin.password !== password) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const { password: _, ...safeAdmin } = admin;
+    res.json({ message: 'Login successful', admin: safeAdmin });
+  } catch (error) {
+    console.error('Admin login error:', error);
+    res.status(500).json({ error: 'Unable to validate login' });
+  }
+});
+
 // router.post('/register', async (req, res) => {
 //     try {
 //         const { email, name } = req.body;

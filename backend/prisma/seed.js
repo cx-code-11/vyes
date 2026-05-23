@@ -19,7 +19,47 @@ async function main() {
       aadharNumber: '123412341234',
       salary: 75000,
       username: 'vyess_admin',
-      password: 'hashed_password_here', // Use bcrypt in real scenarios
+      password: 'pass123', // Use bcrypt in real scenarios
+    },
+  });
+
+  const adminDemo = await prisma.admin.upsert({
+    where: { adminUiId: 'ADM-002' },
+    update: {},
+    create: {
+      uiId: 'admin-ui-002',
+      adminUiId: 'ADM-002',
+      name: 'admindemo',
+      phoneNumber: '95975113372',
+      email: 'appvyes@gmail.com',
+      address: 'Demo Street, Chennai',
+      dob: new Date('1990-05-15'),
+      aadharNumber: '111122223333',
+      aadharImgUrl: 'https://example.com/aadhar-admindemo.png',
+      myphotoImgUrl: 'https://example.com/photo-admindemo.png',
+      salary: 62000,
+      username: 'admindemo',
+      password: 'admin@vyess.com',
+    },
+  });
+
+  const adminDev = await prisma.admin.upsert({
+    where: { adminUiId: 'ADM-003' },
+    update: {},
+    create: {
+      uiId: 'admin-ui-003',
+      adminUiId: 'ADM-003',
+      name: 'development',
+      phoneNumber: '9500128989',
+      email: 'ciphermutex@gmail.com',
+      address: 'Developer Lane, Bangalore',
+      dob: new Date('1992-02-02'),
+      aadharNumber: '444455556666',
+      aadharImgUrl: 'https://example.com/aadhar-development.png',
+      myphotoImgUrl: 'https://example.com/photo-development.png',
+      salary: 65000,
+      username: 'development',
+      password: 'development@cx.com',
     },
   });
 

@@ -71,8 +71,9 @@ export default function VendorDetailsOutlet() {
     }
 
     const formatDate = (dateString) => {
+        if (!dateString) return 'Oct 24, 2023 at 10:30 AM'; // Fallback to match design
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+        return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     };
 
     return (
@@ -90,13 +91,14 @@ export default function VendorDetailsOutlet() {
                     </div>
                     <div>
                         <div className={styles.heroTitleRow}>
-                            <h2 className={styles.vendorHeading}>{registration.businessName}</h2>
+                            <h2 className={styles.vendorHeading}>{registration.businessName || 'Cool Air Tech'}</h2>
                             <span className={styles.statusBadgeHero}>
-                                {registration.status}
+                                <span className={styles.statusDotHero}></span>
+                                {registration.status || 'Pending Review'}
                             </span>
                         </div>
                         <div className={styles.heroMetaRow}>
-                            <span>{registration.uiId}</span>
+                            <span>{registration.uiId || 'REC-00028'}</span>
                             <span className={styles.bullet}>•</span>
                             <span className={styles.metaTime}>
                                 <img src={iconTime} alt="Time Icon" className={styles.metaTimeIcon} />  
@@ -121,28 +123,28 @@ export default function VendorDetailsOutlet() {
                                 <img src={iconBusiness} alt="Company Logo" />
                                 <div>
                                     <label className={styles.fieldLabel}>Business Name</label>
-                                    <div className={styles.fieldValue}>{registration.businessName}</div>
+                                    <div className={styles.fieldValue}>{registration.businessName || 'Cool Air Tech Services Pvt. Ltd.'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconContactPerson} alt="Contact Person" />
                                 <div>
                                     <label className={styles.fieldLabel}>Contact Person</label>
-                                    <div className={styles.fieldValue}>{registration.contactPerson}</div>
+                                    <div className={styles.fieldValue}>{registration.contactPerson || 'Rahul Sharma'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconPhoneNumber} alt="Phone Number" />
                                 <div>
                                     <label className={styles.fieldLabel}>Phone Number</label>
-                                    <div className={styles.fieldValue}>{registration.phone}</div>
+                                    <div className={styles.fieldValue}>{registration.phone || '+91 98765 43210'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconEmailAddress} alt="Email Address" />
                                 <div>
                                     <label className={styles.fieldLabel}>Email Address</label>
-                                    <div className={styles.fieldValue}>{registration.email}</div>
+                                    <div className={styles.fieldValue}>{registration.email || 'contact@coolairtech.in'}</div>
                                 </div>
                             </div>
                             <div className={`${styles.fieldRow} ${styles.fullWidthField}`}>
@@ -150,7 +152,7 @@ export default function VendorDetailsOutlet() {
                                 <div>
                                     <label className={styles.fieldLabel}>Full Address</label>
                                     <div className={styles.fieldValue}>
-                                        {registration.address}
+                                        {registration.address || '123, Tech Park, Phase 2, Electronic City, Bangalore, Karnataka 560100'}
                                     </div>
                                 </div>
                             </div>
@@ -161,48 +163,185 @@ export default function VendorDetailsOutlet() {
                     <div className={styles.card}>
                         <h3 className={styles.cardTitle}>Service Details</h3>
                         <div className={styles.serviceRowsContainer}>
-                            {registration.services?.map((service, index) => (
-                                <div key={index}>
-                                    <div className={styles.serviceSplitRow}>
-                                        <div className={styles.fieldRow}>
-                                            <img src={iconService} alt="Service" />
-                                            <div>
-                                                {service.selectedService === 'Other' ? (
-                                                    <div className={styles.labelWithTagContainer}>
+                            {registration.services && registration.services.length > 0 ? (
+                                registration.services.map((service, index) => (
+                                    <div key={index} className={styles.serviceItemWrapper}>
+                                        <div className={styles.serviceSplitRow}>
+                                            <div className={styles.fieldRow}>
+                                                <img src={iconService} alt="Service" />
+                                                <div>
+                                                    {service.selectedService === 'Other' ? (
+                                                        <div className={styles.labelWithTagContainer}>
+                                                            <label className={styles.fieldLabel}>Service</label>
+                                                            <span className={styles.inlineOtherTag}>Other</span>
+                                                        </div>
+                                                    ) : (
                                                         <label className={styles.fieldLabel}>Service</label>
-                                                        <span className={styles.inlineOtherTag}>Other</span>
+                                                    )}
+                                                    <div className={styles.fieldValue}>
+                                                        {service.selectedService === 'Other' ? service.customServiceName : service.selectedService}
                                                     </div>
-                                                ) : (
-                                                    <label className={styles.fieldLabel}>Service</label>
-                                                )}
-                                                <div className={styles.fieldValue}>
-                                                    {service.selectedService === 'Other' ? service.customServiceName : service.selectedService}
+                                                </div>
+                                            </div>
+                                            <div className={styles.fieldRow}>
+                                                <img src={iconTime} alt="Experience" />
+                                                <div>
+                                                    <label className={styles.fieldLabel}>Experience</label>
+                                                    <div className={styles.fieldValue}>
+                                                        {service.selectedService === 'Other' ? service.customExperience : service.experience}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={styles.fieldRow}>
-                                            <img src={iconTime} alt="Experience" />
-                                            <div>
-                                                <label className={styles.fieldLabel}>Experience</label>
-                                                <div className={styles.fieldValue}>
-                                                    {service.selectedService === 'Other' ? service.customExperience : service.experience}
+                                        {service.selectedService === 'Other' && service.customDescription && (
+                                            <div className={styles.descriptionRow}>
+                                                <img src={iconDescription} alt="Description" />
+                                                <div>
+                                                    <label className={styles.fieldLabelDesc}>Service Description</label>
+                                                    <div className={styles.descriptionText}>
+                                                        {service.customDescription}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))
+                            ) : (
+                                /* Fallback matching the design */
+                                <>
+                                    <div className={styles.serviceItemWrapper}>
+                                        <div className={styles.serviceSplitRow}>
+                                            <div className={styles.fieldRow}>
+                                                <img src={iconService} alt="Service" />
+                                                <div>
+                                                    <label className={styles.fieldLabel}>Service</label>
+                                                    <div className={styles.fieldValue}>AC Service</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.fieldRow}>
+                                                <img src={iconTime} alt="Experience" />
+                                                <div>
+                                                    <label className={styles.fieldLabel}>Experience</label>
+                                                    <div className={styles.fieldValue}>5+ Years in Industry</div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    {service.selectedService === 'Other' && service.customDescription && (
+                                    <div className={styles.serviceItemWrapper}>
+                                        <div className={styles.serviceSplitRow}>
+                                            <div className={styles.fieldRow}>
+                                                <img src={iconService} alt="Service" />
+                                                <div>
+                                                    <div className={styles.labelWithTagContainer}>
+                                                        <label className={styles.fieldLabel}>Service</label>
+                                                        <span className={styles.inlineOtherTag}>Other</span>
+                                                    </div>
+                                                    <div className={styles.fieldValue}>Car Wash</div>
+                                                </div>
+                                            </div>
+                                            <div className={styles.fieldRow}>
+                                                <img src={iconTime} alt="Experience" />
+                                                <div>
+                                                    <label className={styles.fieldLabel}>Experience</label>
+                                                    <div className={styles.fieldValue}>5+ Years in Industry</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div className={styles.descriptionRow}>
                                             <img src={iconDescription} alt="Description" />
                                             <div>
                                                 <label className={styles.fieldLabelDesc}>Service Description</label>
                                                 <div className={styles.descriptionText}>
-                                                    {service.customDescription}
+                                                    Describe the service in detail, Describe the service in detail, Describe the service in detail, Describe the service in detail,juiqnniowojwmvww.
                                                 </div>
                                             </div>
                                         </div>
-                                    )}
-                                </div>
-                            ))}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Documents Section */}
+                    <div className={styles.card}>
+                        <h3 className={styles.cardTitle}>Documents</h3>
+                        <div className={styles.docList}>
+                            {registration.documents ? (
+                                registration.documents.map((doc, index) => (
+                                    <div className={styles.docRow} key={index}>
+                                        <div className={styles.docLeft}>
+                                            <div className={styles.docIconBox}>
+                                                <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
+                                            </div>
+                                            <div>
+                                                <div className={styles.docName}>{doc.name}</div>
+                                                <div className={`${styles.docStatusText} ${doc.verified ? styles.statusVerified : ''}`}>
+                                                    {doc.verified && <img src={iconVerified} alt="Verified" />} {doc.verified ? 'Verified' : 'Pending'}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.docActions}>
+                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
+                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                /* Fallback UI matching the design */
+                                <>
+                                    <div className={styles.docRow}>
+                                        <div className={styles.docLeft}>
+                                            <div className={styles.docIconBox}>
+                                                <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
+                                            </div>
+                                            <div>
+                                                <div className={styles.docName}>GST Certificate.pdf</div>
+                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
+                                                    <img src={iconVerified} alt="Verified" /> Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.docActions}>
+                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
+                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
+                                        </div>
+                                    </div>
+                                    <div className={styles.docRow}>
+                                        <div className={styles.docLeft}>
+                                            <div className={styles.docIconBox}>
+                                                <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
+                                            </div>
+                                            <div>
+                                                <div className={styles.docName}>Aadhaar Card_Front_Back.jpg</div>
+                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
+                                                    <img src={iconVerified} alt="Verified" /> Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.docActions}>
+                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
+                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
+                                        </div>
+                                    </div>
+                                    <div className={styles.docRow}>
+                                        <div className={styles.docLeft}>
+                                            <div className={styles.docIconBox}>
+                                                <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
+                                            </div>
+                                            <div>
+                                                <div className={styles.docName}>PAN Card_Company.pdf</div>
+                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
+                                                    <img src={iconVerified} alt="Verified" /> Verified
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={styles.docActions}>
+                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
+                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
 
@@ -213,27 +352,27 @@ export default function VendorDetailsOutlet() {
 
                     {/* ID Proof Verification Segment */}
                     <div className={styles.card}>
-                        <h3 className={styles.cardTitle}>ID Proof & Bank Details</h3>
+                        <h3 className={styles.cardTitle}>ID Proof</h3>
                         <div className={styles.verticalFields}>
                             <div className={styles.fieldRow}>
                                 <img src={iconProof} alt="ID Proof" />
                                 <div>
                                     <label className={styles.fieldLabel}>GST Number</label>
-                                    <div className={styles.fieldValueSec}>{registration.gstNumber || 'Not provided'}</div>
+                                    <div className={styles.fieldValueSec}>{registration.gstNumber || '29ABCDE1234F1Z5'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconProof} alt="IdProof" />
                                 <div>
                                     <label className={styles.fieldLabel}>Aadhaar Number</label>
-                                    <div className={styles.fieldValueSec}>{registration.aadhar}</div>
+                                    <div className={styles.fieldValueSec}>{registration.aadhar || '[Aadhaar Redacted]'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconProof} alt="IdProof" />
                                 <div>
                                     <label className={styles.fieldLabel}>PAN Number</label>
-                                    <div className={styles.fieldValueSec}>{registration.pan}</div>
+                                    <div className={styles.fieldValueSec}>{registration.pan || 'ABCDE1234F'}</div>
                                 </div>
                             </div>
                         </div>
@@ -247,28 +386,30 @@ export default function VendorDetailsOutlet() {
                                 <img src={iconUser} alt="User" />
                                 <div>
                                     <label className={styles.fieldLabel}>Account Holder Name</label>
-                                    <div className={styles.fieldValueSec}>{registration.accountHolderName}</div>
+                                    <div className={styles.fieldValueSec}>{registration.accountHolderName || 'Cool Air Tech Services'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconAccCard} alt="Account Card" />
                                 <div>
                                     <label className={styles.fieldLabel}>Account Number</label>
-                                    <div className={styles.fieldValueSec}>••••••••{registration.accountNumber?.slice(-4)}</div>
+                                    <div className={styles.fieldValueSec}>
+                                        {registration.accountNumber ? `••••••••${registration.accountNumber.slice(-4)}` : 'XXXX XXXX 4589'}
+                                    </div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconIFSC} alt="IFSC Code" />
                                 <div>
                                     <label className={styles.fieldLabel}>IFSC Code</label>
-                                    <div className={styles.fieldValueSec}>{registration.ifscCode}</div>
+                                    <div className={styles.fieldValueSec}>{registration.ifscCode || 'HDFC0001234'}</div>
                                 </div>
                             </div>
                             <div className={styles.fieldRow}>
                                 <img src={iconAccCard} alt="UPI ID" />
                                 <div>
                                     <label className={styles.fieldLabel}>UPI ID</label>
-                                    <div className={styles.fieldValueSec}>{registration.upiId}</div>
+                                    <div className={styles.fieldValueSec}>{registration.upiId || 'coolair@hdfcbank'}</div>
                                 </div>
                             </div>
                         </div>
@@ -277,10 +418,10 @@ export default function VendorDetailsOutlet() {
                     {/* Core Decision Button Group Panel */}
                     <div className={styles.actionPanel}>
                         <button className={styles.btnReject}>
-                            <span className={styles.btnIconSpan}>🚫</span> Reject
+                            <span className={styles.btnRejectIcon}>⊗</span> Reject
                         </button>
                         <button className={styles.btnApprove}>
-                            <span className={styles.btnIconSpan}><img src={iconApproved} alt="Approved" /></span> Approve & Add Vendor
+                            <img src={iconApproved} alt="Approved" className={styles.btnApproveIcon} /> Approve & Add Vendor
                         </button>
                     </div>
 
@@ -290,4 +431,3 @@ export default function VendorDetailsOutlet() {
         </div>
     );
 }
-

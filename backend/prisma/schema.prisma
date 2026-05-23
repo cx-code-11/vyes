@@ -67,6 +67,9 @@ model VendorRegistrationRequest {
   aadhar             String
   pan                String
   services           Json
+  aadhaarUrl         String?
+  panUrl             String?
+  gstUrl             String?
 }
 
 model VendorService {

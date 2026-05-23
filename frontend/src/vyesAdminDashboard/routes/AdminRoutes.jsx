@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 // 1. Import your Layout
 import Login from '../pages/Login';
@@ -9,18 +9,20 @@ import ReviewQuoteRequest from '../pages/ReviewQuoteRequest';
 import AssignVendor from '../pages/AssignVendor';
 import BecomePartner from '../pages/BecomePartner';
 import VendorDetailsOutlet from '../pages/VendorDetailsOutlet';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 const AdminRoutes = () => {
   return (
     <Routes>
+      <Route index element={<Login />} />
       <Route path="login" element={<Login />} />
       <Route element={<AdminLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="quoteRequested" element={<QuoteRequested />} />
-        <Route path="reviewQuote" element={<ReviewQuoteRequest />} />
-        <Route path="assignVendor" element={<AssignVendor />} />
-        <Route path="becomePartner" element={<BecomePartner />} />
-        <Route path="admin/vendorDetails/:id" element={<VendorDetailsOutlet />} />
+        {/* <Route index element={<Dashboard />} /> */}
+        {/* <Route path="quoteRequested" element={<QuoteRequested />} /> */}
+        {/* <Route path="reviewQuote" element={<ReviewQuoteRequest />} /> */}
+        {/* <Route path="assignVendor" element={<AssignVendor />} /> */}
+        <Route path="becomePartner" element={<ProtectedRoute><BecomePartner /></ProtectedRoute>} />
+        <Route path="/vendorDetails/:id" element={<ProtectedRoute><VendorDetailsOutlet /></ProtectedRoute>} />
         {/* <Route path="services" element={<Services />} /> */}
         {/* <Route path="services/:serviceId" element={<div>Service Detail Page</div>} /> */}
         {/* <Route path="login" element={<Login />} /> */}

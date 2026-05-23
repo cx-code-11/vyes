@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 .mainContent {
   padding: 32px;
@@ -17,6 +17,7 @@
   font-size: clamp(18px, 20.4px, 22px);
   font-weight: 700;
   color: #111827;
+  margin: 0;
 }
 
 /* Banner Hero Container Elements */
@@ -43,13 +44,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #dbeafe;
 }
 
 .heroIcon {
   width: 28px;
   height: 28px;
-  color: #2563eb;
 }
 
 .heroTitleRow {
@@ -70,11 +69,11 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: #fef3c7;
-  color: #d97706;
-  padding: 6px 15px;
+  background-color: #fef9c3;
+  color: #ca8a04;
+  padding: 4px 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -82,15 +81,16 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #d97706;
+  background-color: #eab308;
 }
 
 .heroMetaRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
+  font-size: 14px;
   color: #64748b;
+  font-weight: 500;
 }
 
 .bullet {
@@ -106,7 +106,6 @@
 .metaTimeIcon {
   width: 16px;
   height: 16px;
-  color: #64748b;
 }
 
 /* Flex Column Layout Framework */
@@ -124,20 +123,20 @@
 }
 
 .card {
-  background-color: #F8FAFC;
-  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 14px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.02);
   overflow: hidden;
 }
 
 .cardTitle {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #0f172a;
-  margin-top: 0;
+  margin: 0;
   border-bottom: 1px solid #f1f5f9;
-  padding: 24px 24px 24px 24px;
+  padding: 20px 24px;
 }
 
 /* Base Data Block Segments */
@@ -145,8 +144,7 @@
   padding: 24px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px 32px;
-  background-color: #ffffff;
+  gap: 28px 32px;
 }
 
 .fullWidthField {
@@ -156,7 +154,8 @@
 .verticalFields {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+  padding: 24px;
 }
 
 .fieldRow {
@@ -165,73 +164,71 @@
   gap: 14px;
 }
 
-.fieldIcon {
-  font-size: 16px;
-  padding-top: 2px;
-}
-
-.fieldIconSec {
-  font-size: 16px;
-  color: #94a3b8;
-  opacity: 0.8;
-  padding-top: 2px;
+.fieldRow img {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
 }
 
 .fieldLabel {
   display: block;
-  font-size: 14px;
+  font-size: 13px;
   color: #64748B;
   font-weight: 400;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
 }
 
 .fieldValue {
   font-size: 14px;
   color: #0F172A;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .fieldValueSec {
   font-size: 14px;
   color: #0f172a;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Split Service Section Styles */
 .serviceRowsContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background-color: #ffffff;
+  gap: 28px;
   padding: 24px;
+}
+
+.serviceItemWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .serviceSplitRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
-  padding-bottom: 16px;
 }
 
 .labelWithTagContainer {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .labelWithTagContainer .fieldLabel {
-  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .inlineOtherTag {
-  background-color: #d0eddb;
-  color: #16A34A;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border: 1.5px solid #22C55E;
+  background-color: #dcfce7;
+  color: #16a34a;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border: 1px solid #86efac;
   border-radius: 4px;
 }
 
@@ -239,67 +236,89 @@
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  padding-top: 4px;
+}
+
+.descriptionRow img {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
 }
 
 .fieldLabelDesc {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   color: #94a3b8;
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 6px;
 }
 
 .descriptionText {
-  font-size: 13px;
-  color: #475569;
-  line-height: 1.5;
-  font-weight: 500;
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.6;
+  font-weight: 400;
 }
 
 /* Document List Elements */
 .docList {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  padding: 12px 24px 0px 24px;
+  padding: 8px 24px 24px 24px;
 }
 
 .docRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 0;
+  padding: 16px 0;
   border-bottom: 1px solid #f1f5f9;
 }
 
 .docRow:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .docLeft {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .docIconBox {
-  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: #eff6ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.docFileIcon {
+  width: 20px;
+  height: 20px;
 }
 
 .docName {
   font-size: 14px;
-  font-weight: 600;
-  color: #334155;
+  font-weight: 500;
+  color: #0f172a;
+  margin-bottom: 4px;
 }
 
 .docStatusText {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  padding: 8px 0;
   display: flex;
-  gap: 5px;
+  gap: 6px;
   align-items: center;
+  color: #64748b;
+}
+
+.docStatusText img {
+  width: 14px;
+  height: 14px;
 }
 
 .statusVerified {
@@ -315,12 +334,18 @@
 .docActionBtn {
   background: none;
   border: none;
-  font-size: 16px;
   cursor: pointer;
-  padding: 6px;
+  padding: 8px;
   border-radius: 6px;
-  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.2s;
+}
+
+.docActionBtn img {
+  width: 20px;
+  height: 20px;
 }
 
 .docActionBtn:hover {
@@ -328,45 +353,44 @@
 }
 
 /* Right Fixed Control Button Interface */
-
-.verticalFields{
-  padding: 24px;
-  background-color: #ffffff;
-}
-
 .actionPanel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 4px;
+  gap: 16px;
 }
 
 .actionPanel button {
   width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 500;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
 }
 
-.btnIconSpan {
-  font-size: 14px;
+.btnRejectIcon {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .btnReject {
   background-color: #ffffff;
   border: 1px solid #fca5a5;
-  color: #dc2626;
+  color: #ef4444;
 }
 
 .btnReject:hover {
   background-color: #fef2f2;
+}
+
+.btnApproveIcon {
+  width: 18px;
+  height: 18px;
 }
 
 .btnApprove {

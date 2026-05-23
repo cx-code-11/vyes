@@ -141,18 +141,30 @@
     text-decoration: none;
 }
 
-.fillButton>button{
+.fillButton{
     width: 100%;
     background-color: rgba(37, 99, 235, 1);
-    color: #fff;
     border: none;
     border-radius: 8px;
     padding: 10px 0;
+    cursor: pointer;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttonWrapper{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.buttonWrapper>p{
     font-family: "DM Sans", sans-serif;
     font-weight: 600;
     font-size: 16px;
-    cursor: pointer;
-    margin: 12px 0;
+    color: #fff;
 }
 
 .fillButton>button img{
@@ -216,4 +228,11 @@
 .signupLinkContainer>p a{
     color: rgba(37, 99, 235, 1);
     cursor: pointer;
+}
+
+.errorMessage {
+  margin-top: 12px;
+  color: #dc2626;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
 }

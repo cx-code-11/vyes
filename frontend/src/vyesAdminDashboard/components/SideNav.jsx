@@ -12,6 +12,7 @@ import IconCoupon from '../assets/icon-coupon.svg?react';
 import IconRecords from '../assets/icon-records.svg?react';
 import IconManagement from '../assets/icon-Management.svg?react';
 import IconComplaints from '../assets/icon-complaints.svg?react';
+import IconBecomePartner from '../assets/icon-becomePartner.svg?react';
 import IconNotification from '../assets/icon-notification.svg?react';
 import profileImg from '../assets/download.png';
 
@@ -20,10 +21,10 @@ import styles from './styles/sideNav.module.css';
 
 const SideNav = () => {
 
-    const [selectedLink, setSelectedLink] = useState('dashboard'); // Default selected link
+    const [selectedLink, setSelectedLink] = useState('become-a-partner'); // Default selected link
 
     const [userProfile, setUserProfile] = useState({
-        name: 'John Doe',
+        name: 'Admin',
         role: 'System Authority',
         profilePicture: profileImg, // Placeholder for profile picture
     });
@@ -59,7 +60,7 @@ const SideNav = () => {
                             <IconDashboard className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/dashboard"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -80,7 +81,7 @@ const SideNav = () => {
                             <IconOrder className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/orderWorkflow"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -101,7 +102,7 @@ const SideNav = () => {
                             <IconPayment className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/paymentControl"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -122,7 +123,7 @@ const SideNav = () => {
                             <IconAnalytics className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/businessAnalytics"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -143,7 +144,7 @@ const SideNav = () => {
                             <IconOffers className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/offers"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -164,13 +165,13 @@ const SideNav = () => {
                             <IconCoupon className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/coupons"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
     `}
                         >
-                            Coupon Code
+                            Coupons
                         </Link>
                     </div>
                     <div
@@ -185,7 +186,7 @@ const SideNav = () => {
                             <IconRecords className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/records"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -206,7 +207,7 @@ const SideNav = () => {
                             <IconManagement className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/management"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -227,13 +228,34 @@ const SideNav = () => {
                             <IconComplaints className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/"
+                            to="/complaints"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
     `}
                         >
                             Complaints
+                        </Link>
+                    </div>
+                    <div
+                        className={`
+                            ${styles.linkContainer} 
+                            ${selectedLink === "become-a-partner" ? styles.activeLink : ""}
+                            `}
+                        onClick={() => setSelectedLink("become-a-partner")}
+                    >
+                        <div className={styles.selectedIndication}></div>
+                        <div className={styles.iconContainer}>
+                            <IconBecomePartner className={styles.navIcon} />
+                        </div>
+                        <Link
+                            to="/becomePartner"
+                            className={`
+        ${styles.navText}
+        ${collapsed ? styles.hideText : ""}
+    `}
+                        >
+                            Become a Partner
                         </Link>
                     </div>
                 </div>
