@@ -28,6 +28,7 @@ export default function VendorDetailsOutlet() {
     const [registration, setRegistration] = useState(location.state?.registration || null);
     const [loading, setLoading] = useState(!registration);
     const [error, setError] = useState('');
+    const [previewUrl, setPreviewUrl] = useState(null);
     const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
 
     useEffect(() => {
@@ -76,6 +77,29 @@ export default function VendorDetailsOutlet() {
         return date.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     };
 
+    const handleUpdateStatus = async (newStatus) => {
+        try {
+            const response = await fetch(`${apiBaseUrl}/vendor-registration/${registration.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: newStatus })
+            });
+
+            if (!response.ok) {
+                alert('Failed to update status');
+                return;
+            }
+
+            const data = await response.json();
+            setRegistration(data.data); // Update local state immediately
+        } catch (err) {
+            console.error('Error updating status:', err);
+            alert('An error occurred while updating the status');
+        }
+    };
+
     return (
         <div className={styles.mainContent}>
             {/* Top Main Heading */}
@@ -92,17 +116,22 @@ export default function VendorDetailsOutlet() {
                     <div>
                         <div className={styles.heroTitleRow}>
                             <h2 className={styles.vendorHeading}>{registration.businessName || 'Cool Air Tech'}</h2>
-                            <span className={styles.statusBadgeHero}>
+                            <span className={`${styles.statusBadgeHero} ${
+                                registration.status === 'Approved' ? styles.statusApproved : 
+                                registration.status === 'Rejected' ? styles.statusRejected : 
+                                registration.status === 'Reviewed' ? styles.statusReviewed : 
+                                styles.statusPending
+                            }`}>
                                 <span className={styles.statusDotHero}></span>
-                                {registration.status || 'Pending Review'}
+                                {registration.status || 'Pending'}
                             </span>
                         </div>
                         <div className={styles.heroMetaRow}>
                             <span>{registration.uiId || 'REC-00028'}</span>
                             <span className={styles.bullet}>•</span>
                             <span className={styles.metaTime}>
-                                <img src={iconTime} alt="Time Icon" className={styles.metaTimeIcon} />  
-                                 Applied: {formatDate(registration.created)}
+                                <img src={iconTime} alt="Time Icon" className={styles.metaTimeIcon} />
+                                Applied: {formatDate(registration.created)}
                             </span>
                         </div>
                     </div>
@@ -266,8 +295,18 @@ export default function VendorDetailsOutlet() {
                     <div className={styles.card}>
                         <h3 className={styles.cardTitle}>Documents</h3>
                         <div className={styles.docList}>
-                            {registration.documents ? (
-                                registration.documents.map((doc, index) => (
+                            {[
+                                { name: 'Aadhaar Card', url: registration.aadhaarUrl },
+                                { name: 'PAN Card', url: registration.panUrl },
+                                { name: 'GST Certificate', url: registration.gstUrl },
+                                { name: 'Signed Agreement', url: registration.agreementUrl }
+                            ].filter(doc => doc.url).length > 0 ? (
+                                [
+                                    { name: 'Aadhaar Card', url: registration.aadhaarUrl },
+                                    { name: 'PAN Card', url: registration.panUrl },
+                                    { name: 'GST Certificate', url: registration.gstUrl },
+                                    { name: 'Signed Agreement', url: registration.agreementUrl }
+                                ].filter(doc => doc.url).map((doc, index) => (
                                     <div className={styles.docRow} key={index}>
                                         <div className={styles.docLeft}>
                                             <div className={styles.docIconBox}>
@@ -275,14 +314,14 @@ export default function VendorDetailsOutlet() {
                                             </div>
                                             <div>
                                                 <div className={styles.docName}>{doc.name}</div>
-                                                <div className={`${styles.docStatusText} ${doc.verified ? styles.statusVerified : ''}`}>
-                                                    {doc.verified && <img src={iconVerified} alt="Verified" />} {doc.verified ? 'Verified' : 'Pending'}
+                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
+                                                    <img src={iconVerified} alt="Verified" /> Uploaded
                                                 </div>
                                             </div>
                                         </div>
                                         <div className={styles.docActions}>
-                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
-                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
+                                            <button onClick={() => setPreviewUrl(doc.url)} className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
+                                            <a href={doc.url} download className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></a>
                                         </div>
                                     </div>
                                 ))
@@ -295,49 +334,8 @@ export default function VendorDetailsOutlet() {
                                                 <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
                                             </div>
                                             <div>
-                                                <div className={styles.docName}>GST Certificate.pdf</div>
-                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
-                                                    <img src={iconVerified} alt="Verified" /> Verified
-                                                </div>
+                                                <div className={styles.docName}>No documents uploaded yet.</div>
                                             </div>
-                                        </div>
-                                        <div className={styles.docActions}>
-                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
-                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
-                                        </div>
-                                    </div>
-                                    <div className={styles.docRow}>
-                                        <div className={styles.docLeft}>
-                                            <div className={styles.docIconBox}>
-                                                <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
-                                            </div>
-                                            <div>
-                                                <div className={styles.docName}>Aadhaar Card_Front_Back.jpg</div>
-                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
-                                                    <img src={iconVerified} alt="Verified" /> Verified
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.docActions}>
-                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
-                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
-                                        </div>
-                                    </div>
-                                    <div className={styles.docRow}>
-                                        <div className={styles.docLeft}>
-                                            <div className={styles.docIconBox}>
-                                                <img src={iconDocument} alt="Document" className={styles.docFileIcon} />
-                                            </div>
-                                            <div>
-                                                <div className={styles.docName}>PAN Card_Company.pdf</div>
-                                                <div className={`${styles.docStatusText} ${styles.statusVerified}`}>
-                                                    <img src={iconVerified} alt="Verified" /> Verified
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.docActions}>
-                                            <button className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
-                                            <button className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></button>
                                         </div>
                                     </div>
                                 </>
@@ -417,10 +415,10 @@ export default function VendorDetailsOutlet() {
 
                     {/* Core Decision Button Group Panel */}
                     <div className={styles.actionPanel}>
-                        <button className={styles.btnReject}>
+                        <button className={styles.btnReject} onClick={() => handleUpdateStatus('Rejected')}>
                             <span className={styles.btnRejectIcon}>⊗</span> Reject
                         </button>
-                        <button className={styles.btnApprove}>
+                        <button className={styles.btnApprove} onClick={() => handleUpdateStatus('Approved')}>
                             <img src={iconApproved} alt="Approved" className={styles.btnApproveIcon} /> Approve & Add Vendor
                         </button>
                     </div>
@@ -428,6 +426,66 @@ export default function VendorDetailsOutlet() {
                 </div>
 
             </div>
+
+            {/* Document Preview Overlay */}
+            {previewUrl && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: 0, left: 0, right: 0, bottom: 0,
+                        backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                        zIndex: 1000,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: '2rem'
+                    }}
+                    onClick={() => setPreviewUrl(null)}
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                            maxWidth: '1000px',
+                            backgroundColor: 'white',
+                            borderRadius: '8px',
+                            overflow: 'hidden',
+                            position: 'relative'
+                        }}
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setPreviewUrl(null)}
+                            style={{
+                                position: 'absolute',
+                                top: '10px', right: '10px',
+                                background: '#64748B',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '32px', height: '32px',
+                                cursor: 'pointer',
+                                zIndex: 10
+                            }}
+                        >
+                            ✕
+                        </button>
+                        {previewUrl.match(/\.(jpeg|jpg|gif|png)$/i) ? (
+                            <img
+                                src={previewUrl}
+                                alt="Document Preview"
+                                style={{ width: '100%', height: '100%', objectFit: 'contain', backgroundColor: '#f8fafc' }}
+                            />
+                        ) : (
+                            <iframe
+                                src={previewUrl}
+                                style={{ width: '100%', height: '100%', border: 'none' }}
+                                title="Document Preview"
+                            />
+                        )}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

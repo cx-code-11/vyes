@@ -39,7 +39,7 @@ export function DocumentUpload() {
       if (files.pan) formData.append('pan', files.pan);
       if (files.gst) formData.append('gst', files.gst);
 
-      const response = await fetch('http://72.61.233.152:3001/api/upload', {
+      const response = await fetch('http://localhost:3000/api/upload', {
         method: 'POST',
         body: formData,
       });
@@ -54,6 +54,26 @@ export function DocumentUpload() {
       const vendorData = JSON.parse(localStorage.getItem('vendorData') || '{}');
       vendorData.documentUrls = data.urls;
       localStorage.setItem('vendorData', JSON.stringify(vendorData));
+
+      // Update the database record
+      const vendorRegistrationId = localStorage.getItem('vendorRegistrationId');
+      if (vendorRegistrationId) {
+        const updateResponse = await fetch(`http://localhost:3000/vendor-registration/${vendorRegistrationId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            aadhaarUrl: data.urls.aadhaar,
+            panUrl: data.urls.pan,
+            gstUrl: data.urls.gst
+          })
+        });
+
+        if (!updateResponse.ok) {
+          console.error('Failed to update registration with document URLs');
+        }
+      }
 
       navigate('/agreement');
     } catch (error) {

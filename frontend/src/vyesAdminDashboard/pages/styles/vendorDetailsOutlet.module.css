@@ -69,8 +69,6 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: #fef9c3;
-  color: #ca8a04;
   padding: 4px 12px;
   border-radius: 6px;
   font-size: 13px;
@@ -81,7 +79,39 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
+}
+
+/* Status Modifiers */
+.statusPending {
+  background-color: #fef9c3;
+  color: #ca8a04;
+}
+.statusPending .statusDotHero {
   background-color: #eab308;
+}
+
+.statusApproved {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+.statusApproved .statusDotHero {
+  background-color: #22c55e;
+}
+
+.statusReviewed {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+.statusReviewed .statusDotHero {
+  background-color: #3b82f6;
+}
+
+.statusRejected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.statusRejected .statusDotHero {
+  background-color: #ef4444;
 }
 
 .heroMetaRow {

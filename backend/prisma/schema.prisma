@@ -70,6 +70,7 @@ model VendorRegistrationRequest {
   aadhaarUrl         String?
   panUrl             String?
   gstUrl             String?
+  agreementUrl       String?
 }
 
 model VendorService {

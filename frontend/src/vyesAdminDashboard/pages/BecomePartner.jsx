@@ -38,6 +38,40 @@ export default function BecomePartner() {
     fetchRegistrations();
   }, []);
 
+  const handleReviewClick = async (partner) => {
+    // If it's already reviewed or processed, just navigate
+    if (partner.status !== 'Pending') {
+      navigate(`/admin/vendorDetails/${partner.id}`, { state: { registration: partner } });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/vendor-registration/${partner.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'Reviewed' })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update status');
+      }
+
+      const { data } = await response.json();
+      
+      // Update local state so badge changes immediately
+      setRegistrations(prev => 
+        prev.map(p => p.id === partner.id ? { ...p, status: 'Reviewed' } : p)
+      );
+
+      // Navigate with updated data
+      navigate(`/admin/vendorDetails/${partner.id}`, { state: { registration: data } });
+    } catch (err) {
+      console.error('Error updating status to Reviewed:', err);
+      // Fallback navigation if update fails
+      navigate(`/admin/vendorDetails/${partner.id}`, { state: { registration: partner } });
+    }
+  };
+
   return (
     <div className={styles.mainContent}>
       {/* Top Header Controls */}
@@ -113,13 +147,13 @@ export default function BecomePartner() {
                     <div className={styles.timeText}>{new Date(partner.created).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</div>
                   </td>
                   <td className={styles.td}>
-                    <span className={`${styles.statusBadge} ${partner.status === 'Approved' ? styles.statusApproved : partner.status === 'Rejected' ? styles.statusRejected : styles.statusPending}`}>
+                    <span className={`${styles.statusBadge} ${partner.status === 'Approved' ? styles.statusApproved : partner.status === 'Rejected' ? styles.statusRejected : partner.status === 'Reviewed' ? styles.statusReview : styles.statusPending}`}>
                       <span className={styles.statusDot}></span>
                       {partner.status}
                     </span>
                   </td>
                   <td className={styles.td} style={{ textAlign: 'center' }}>
-                    <button className={styles.reviewButton} onClick={() => navigate(`/admin/vendorDetails/${partner.id}`, { state: { registration: partner } })}>
+                    <button className={styles.reviewButton} onClick={() => handleReviewClick(partner)}>
                       Review
                     </button>
                   </td>

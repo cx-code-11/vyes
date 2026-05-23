@@ -40,7 +40,11 @@ router.post('/vendor-registration', async (req, res) => {
       gstNumber,
       aadhar,
       pan,
-      services
+      services,
+      aadhaarUrl,
+      panUrl,
+      gstUrl,
+      agreementUrl
     } = req.body;
 
     if (!businessName || !contactPerson || !email || !phone || !address || !accountHolderName || !accountNumber || !ifscCode || !upiId || !aadhar || !pan || !Array.isArray(services)) {
@@ -64,7 +68,11 @@ router.post('/vendor-registration', async (req, res) => {
         gstNumber,
         aadhar,
         pan,
-        services
+        services,
+        aadhaarUrl,
+        panUrl,
+        gstUrl,
+        agreementUrl
       }
     });
 
@@ -76,6 +84,29 @@ router.post('/vendor-registration', async (req, res) => {
       code: error.code || null,
       meta: error.meta || null
     });
+  }
+});
+
+router.put('/vendor-registration/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { aadhaarUrl, panUrl, gstUrl, agreementUrl, status } = req.body;
+
+    const updatedRegistration = await prisma.vendorRegistrationRequest.update({
+      where: { id },
+      data: {
+        ...(aadhaarUrl && { aadhaarUrl }),
+        ...(panUrl && { panUrl }),
+        ...(gstUrl && { gstUrl }),
+        ...(agreementUrl && { agreementUrl }),
+        ...(status && { status })
+      }
+    });
+
+    res.json({ message: 'Registration updated successfully', data: updatedRegistration });
+  } catch (error) {
+    console.error('Update Registration Error:', error);
+    res.status(500).json({ error: 'Could not update registration request' });
   }
 });
 

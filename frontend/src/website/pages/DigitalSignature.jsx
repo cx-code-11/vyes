@@ -115,6 +115,37 @@ export function DigitalSignature() {
         pdf.text(`Loc: ${location.lat.toFixed(4)}, ${location.lng.toFixed(4)}`, leftMargin, sigY + sigHeight + 22);
       }
 
+      const pdfBlob = pdf.output('blob');
+      const formData = new FormData();
+      formData.append('agreement', pdfBlob, 'signed_agreement.pdf');
+
+      const response = await fetch('http://localhost:3000/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      
+      const vendorDataToUpdate = JSON.parse(localStorage.getItem('vendorData') || '{}');
+      vendorDataToUpdate.documentUrls = {
+        ...vendorDataToUpdate.documentUrls,
+        signedAgreementUrl: data.urls.agreement,
+      };
+      localStorage.setItem('vendorData', JSON.stringify(vendorDataToUpdate));
+
+      const vendorRegistrationId = localStorage.getItem('vendorRegistrationId');
+      if (vendorRegistrationId) {
+        await fetch(`http://localhost:3000/vendor-registration/${vendorRegistrationId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agreementUrl: data.urls.agreement })
+        });
+      }
+
       pdf.save(`${vendorName.replace(/\s+/g, '_') || 'Vendor'}_Agreement.pdf`);
       setTimeout(() => {
         navigate('/pending');
