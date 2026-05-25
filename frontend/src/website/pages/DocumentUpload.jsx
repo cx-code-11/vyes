@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import { Upload, FileText, CheckCircle2, Loader2 } from 'lucide-react';
+import styles from './styles/documentUpload.module.css';
 
 const steps = [
   { name: 'Registration' },
@@ -11,6 +12,8 @@ const steps = [
   { name: 'Agreement' },
   { name: 'Sign' }
 ];
+
+const apiBaseUrl = typeof import.meta.env.VITE_API_BASE_URL !== 'undefined' ? import.meta.env.VITE_API_BASE_URL : 'http://localhost:3000';
 
 export function DocumentUpload() {
   const navigate = useNavigate();
@@ -56,7 +59,6 @@ export function DocumentUpload() {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsUploading(true);
@@ -67,7 +69,7 @@ export function DocumentUpload() {
       if (files.pan) formData.append('pan', files.pan);
       if (files.gst) formData.append('gst', files.gst);
 
-      const response = await fetch('http://localhost:3000/api/upload', {
+      const response = await fetch(`${apiBaseUrl}/api/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -86,7 +88,7 @@ export function DocumentUpload() {
       // Update the database record
       const vendorRegistrationId = localStorage.getItem('vendorRegistrationId');
       if (vendorRegistrationId) {
-        const updateResponse = await fetch(`http://localhost:3000/vendor-registration/${vendorRegistrationId}`, {
+        const updateResponse = await fetch(`${apiBaseUrl}/vendor-registration/${vendorRegistrationId}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -112,56 +114,55 @@ export function DocumentUpload() {
     }
   };
 
-
   const renderUploadBox = (title, type, description) => {
     const selectedFile = files[type];
     const selectedPreviewUrl = previewUrls[type];
     const isPdf = selectedFile?.type === 'application/pdf';
 
     return (
-      <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:bg-slate-50 transition-colors">
+      <div className={styles.uploadBox}>
         <input
           type="file"
           id={`upload-${type}`}
-          className="hidden"
+          className={styles.hiddenInput}
           onChange={(e) => handleFileChange(e, type)}
           accept=".pdf,.jpg,.jpeg,.png"
         />
-        <label htmlFor={`upload-${type}`} className="cursor-pointer flex flex-col items-center">
+        <label htmlFor={`upload-${type}`} className={styles.uploadLabel}>
           {selectedFile ? (
-            <div className="w-full space-y-4">
-              <div className="mx-auto flex h-48 w-full max-w-sm items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-white">
+            <div className={styles.fileWrapper}>
+              <div className={styles.previewContainer}>
                 {isPdf ? (
                   <iframe
                     src={selectedPreviewUrl}
                     title={`${title} preview`}
-                    className="h-full w-full"
+                    className={styles.previewIframe}
                   />
                 ) : selectedPreviewUrl ? (
                   <img
                     src={selectedPreviewUrl}
                     alt={`${title} preview`}
-                    className="h-full w-full object-contain"
+                    className={styles.previewImage}
                   />
                 ) : (
-                  <div className="text-center px-4">
-                    <FileText className="h-10 w-10 text-slate-400 mx-auto mb-2" />
-                    <p className="text-sm font-medium text-slate-700">{selectedFile.name}</p>
-                    <p className="text-xs text-slate-500 mt-1">Preview not available</p>
+                  <div className={styles.noPreviewBox}>
+                    <FileText className={styles.noPreviewIcon} />
+                    <p className={styles.noPreviewText}>{selectedFile.name}</p>
+                    <p className={styles.noPreviewSubText}>Preview not available</p>
                   </div>
                 )}
               </div>
               <div>
-                <CheckCircle2 className="h-10 w-10 text-green-500 mb-3 mx-auto" />
-                <span className="font-medium text-slate-900 block">{selectedFile.name}</span>
-                <span className="text-sm text-slate-500 mt-1 block">Click to change</span>
+                <CheckCircle2 className={styles.successIcon} />
+                <span className={styles.fileName}>{selectedFile.name}</span>
+                <span className={styles.changeText}>Click to change</span>
               </div>
             </div>
           ) : (
             <>
-              <Upload className="h-10 w-10 text-blue-500 mb-3" />
-              <span className="font-medium text-slate-900">Upload {title}</span>
-              <span className="text-sm text-slate-500 mt-1">{description} (PDF, JPG, PNG)</span>
+              <Upload className={styles.uploadIcon} />
+              <span className={styles.uploadTitle}>Upload {title}</span>
+              <span className={styles.uploadDescription}>{description} (PDF, JPG, PNG)</span>
             </>
           )}
         </label>
@@ -170,23 +171,23 @@ export function DocumentUpload() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Upload Documents</h1>
-        <p className="mt-2 text-slate-600">Please provide the required KYC documents for verification.</p>
+    <div className={styles.pageWrapper}>
+      <div className={styles.headerSection}>
+        <h1 className={styles.pageTitle}>Upload Documents</h1>
+        <p className={styles.pageSubtitle}>Please provide the required KYC documents for verification.</p>
       </div>
 
-      <div className="mb-10">
+      <div className={styles.stepsContainer}>
         <StepIndicator steps={steps} currentStep={1} />
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
         <Card>
           <CardHeader 
             title="KYC Documents"
             description="Ensure all documents are clear and legible."
           />
-          <CardContent className="space-y-6">
+          <CardContent className={styles.contentWrapper}>
             {renderUploadBox('Aadhaar Card', 'aadhaar', 'Front and back side')}
             {renderUploadBox('PAN Card', 'pan', 'Clear image of PAN card')}
             {renderUploadBox('GST Certificate', 'gst', 'Optional if not applicable')}
@@ -198,9 +199,16 @@ export function DocumentUpload() {
             <Button 
               type="submit" 
               size="lg"
-              disabled={!files.aadhaar || !files.pan}
+              disabled={!files.aadhaar || !files.pan || isUploading}
             >
-              Save & Continue
+              {isUploading ? (
+                <>
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                  Uploading...
+                </>
+              ) : (
+                'Save & Continue'
+              )}
             </Button>
           </CardFooter>
         </Card>

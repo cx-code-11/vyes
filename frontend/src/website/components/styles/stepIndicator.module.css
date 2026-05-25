@@ -1,0 +1,69 @@
+.progressNav {
+  width: 100%;
+}
+
+.stepList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.stepItem {
+  flex: 1;
+}
+
+.stepBlock {
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid #e2e8f0;
+  padding: 8px 0 8px 16px;
+  transition: border-color 0.2s ease;
+}
+
+.stepBlockCompleted,
+.stepBlockCurrent {
+  border-left: 4px solid #2563eb;
+}
+
+.stepNumber {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.stepNumberCompleted,
+.stepNumberCurrent {
+  color: #2563eb;
+}
+
+.stepName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+@media (min-width: 768px) {
+  .stepList {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .stepBlock {
+    border-left: none;
+    border-top: 4px solid #e2e8f0;
+    padding: 16px 0 0 0;
+  }
+
+  .stepBlockCompleted,
+  .stepBlockCurrent {
+    border-left: none;
+    border-top: 4px solid #2563eb;
+  }
+}

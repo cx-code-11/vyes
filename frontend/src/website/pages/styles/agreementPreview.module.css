@@ -1,0 +1,166 @@
+.pageWrapper {
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+.headerSection {
+  margin-bottom: 2rem;
+}
+
+.pageTitle {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.pageSubtitle {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0;
+}
+
+.stepsContainer {
+  margin-bottom: 2.5rem;
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tcBox {
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  padding: 24px;
+}
+
+.tcHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pdfTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.pdfDescription {
+  font-size: 0.875rem;
+  color: #475569;
+  margin: 4px 0 0 0;
+}
+
+.viewStatusBadge {
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badgeStatusPending {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.badgeStatusComplete {
+  background-color: #d1fae5;
+  color: #047857;
+}
+
+.pdfViewerWrapper {
+  margin-top: 16px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  padding: 24px 0;
+}
+
+.scrollContainer {
+  max-height: 36rem;
+  overflow-y: auto;
+  background-color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 0 16px;
+}
+
+:global(.react-pdf__Document) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+:global(.react-pdf__Page) {
+  background-color: #ffffff !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 100%;
+  border: 1px solid #e2e8f0;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: center;
+  height: 1.25rem;
+}
+
+.checkboxInput {
+  width: 1rem;
+  height: 1rem;
+  color: #2563eb;
+  border-color: #cbd5e1;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+.checkboxInput:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.checkboxLabel {
+  font-size: 0.875rem;
+  color: #334155;
+  user-select: none;
+}
+
+.labelName {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.checkboxHelpText {
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.errorMessage {
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: #e11d48;
+}

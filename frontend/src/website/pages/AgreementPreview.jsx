@@ -6,6 +6,10 @@ import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import agreementPdf from '../assets/VYESSFMS_Vendor_Agreement.pdf';
 
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/TextLayer.css';
+import styles from './styles/agreementPreview.module.css';
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const steps = [
@@ -58,13 +62,13 @@ export function AgreementPreview() {
   if (!vendorData) return <div>Loading...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Service Agreement</h1>
-        <p className="mt-2 text-slate-600">Please review the master service agreement generated for your company.</p>
+    <div className={styles.pageWrapper}>
+      <div className={styles.headerSection}>
+        <h1 className={styles.pageTitle}>Service Agreement</h1>
+        <p className={styles.pageSubtitle}>Please review the master service agreement generated for your company.</p>
       </div>
 
-      <div className="mb-10">
+      <div className={styles.stepsContainer}>
         <StepIndicator steps={steps} currentStep={2} />
       </div>
 
@@ -74,23 +78,26 @@ export function AgreementPreview() {
           description="Read carefully before accepting"
           className="bg-slate-50"
         />
-        <CardContent className="space-y-6">
-          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+        <CardContent className={styles.contentWrapper}>
+          <div className={styles.tcBox}>
+            <div className={styles.tcHeader}>
               <div>
-                <p className="text-sm font-semibold text-slate-900">VYESSFMS_Vendor_Agreement.pdf</p>
-                <p className="text-sm text-slate-600">Scroll to the bottom of the last page to enable the agreement acceptance checkbox.</p>
+                <p className={styles.pdfTitle}>VYESSFMS_Vendor_Agreement.pdf</p>
+                <p className={styles.pdfDescription}>Scroll to the bottom of the last page to enable the agreement acceptance checkbox.</p>
               </div>
-              <span className={`rounded-full px-3 py-1 text-xs font-semibold ${hasFullyViewedPdf ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+              <span className={`
+                ${styles.viewStatusBadge}
+                ${hasFullyViewedPdf ? styles.badgeStatusComplete : styles.badgeStatusPending}
+              `}>
                 {hasFullyViewedPdf ? 'Full PDF viewed' : 'Scroll to complete'}
               </span>
             </div>
 
-            <div className="mt-4 overflow-hidden rounded-lg border border-slate-200 bg-white">
+            <div className={styles.pdfViewerWrapper}>
               <div
                 ref={scrollContainerRef}
                 onScroll={checkFullView}
-                className="max-h-[36rem] overflow-y-auto bg-white"
+                className={styles.scrollContainer}
               >
                 <Document
                   file={agreementPdf}
@@ -109,7 +116,7 @@ export function AgreementPreview() {
                     <Page
                       key={`page_${index + 1}`}
                       pageNumber={index + 1}
-                      width={612}
+                      width={595}
                       renderTextLayer
                       renderAnnotationLayer
                     />
@@ -119,29 +126,29 @@ export function AgreementPreview() {
             </div>
 
             {previewError ? (
-              <p className="mt-3 text-sm text-rose-600">
+              <p className={styles.errorMessage}>
                 The PDF preview could not be loaded in this browser. Please refresh the page and try again.
               </p>
             ) : null}
           </div>
 
-          <div className="flex items-start gap-3">
-            <div className="flex items-center h-5">
+          <div className={styles.checkboxContainer}>
+            <div className={styles.checkboxWrapper}>
               <input
                 id="accept"
                 name="accept"
                 type="checkbox"
-                className="w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                className={styles.checkboxInput}
                 checked={accepted}
                 disabled={!hasFullyViewedPdf}
                 onChange={(event) => setAccepted(event.target.checked)}
               />
             </div>
             <div>
-              <label htmlFor="accept" className="text-sm text-slate-700">
-                I, {vendorData.contactPerson}, authorized representative of {vendorData.companyName}, have read and agree to the terms and conditions outlined in this agreement.
+              <label htmlFor="accept" className={styles.checkboxLabel}>
+                I, <span className={styles.labelName}>{vendorData.contactPerson}</span>, authorized representative of <span className={styles.labelName}>{vendorData.companyName || vendorData.businessName}</span>, have read and agree to the terms and conditions outlined in this agreement.
               </label>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className={styles.checkboxHelpText}>
                 {hasFullyViewedPdf
                   ? 'You can now accept the agreement and continue.'
                   : 'Please scroll through the entire PDF before checking this box.'}
