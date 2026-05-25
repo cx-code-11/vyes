@@ -100,6 +100,36 @@ export default function VendorDetailsOutlet() {
         }
     };
 
+    const handleDownloadDocument = async (doc) => {
+        if (!doc?.url) return;
+
+        try {
+            const response = await fetch(doc.url);
+            if (!response.ok) {
+                throw new Error('Unable to download document');
+            }
+
+            const blob = await response.blob();
+            const objectUrl = URL.createObjectURL(blob);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = objectUrl;
+            downloadLink.download = doc.name || 'document';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            downloadLink.remove();
+            URL.revokeObjectURL(objectUrl);
+        } catch (error) {
+            console.error('Error downloading document:', error);
+            const fallbackLink = document.createElement('a');
+            fallbackLink.href = doc.url;
+            fallbackLink.target = '_blank';
+            fallbackLink.rel = 'noreferrer';
+            document.body.appendChild(fallbackLink);
+            fallbackLink.click();
+            fallbackLink.remove();
+        }
+    };
+
     return (
         <div className={styles.mainContent}>
             {/* Top Main Heading */}
@@ -321,7 +351,13 @@ export default function VendorDetailsOutlet() {
                                         </div>
                                         <div className={styles.docActions}>
                                             <button onClick={() => setPreviewUrl(doc.url)} className={styles.docActionBtn}><img src={iconView} alt="View" /></button>
-                                            <a href={doc.url} download className={styles.docActionBtn}><img src={iconDownload} alt="Download" /></a>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleDownloadDocument(doc)}
+                                                className={styles.docActionBtn}
+                                            >
+                                                <img src={iconDownload} alt="Download" />
+                                            </button>
                                         </div>
                                     </div>
                                 ))
@@ -392,7 +428,7 @@ export default function VendorDetailsOutlet() {
                                 <div>
                                     <label className={styles.fieldLabel}>Account Number</label>
                                     <div className={styles.fieldValueSec}>
-                                        {registration.accountNumber ? `••••••••${registration.accountNumber.slice(-4)}` : 'XXXX XXXX 4589'}
+                                        {registration.accountNumber ? registration.accountNumber : 'XXXX XXXX XXXX'}
                                     </div>
                                 </div>
                             </div>

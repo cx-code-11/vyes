@@ -60,7 +60,7 @@ const SideNav = () => {
                             <IconDashboard className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/dashboard"
+                            to="/admin/dashboard"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -81,7 +81,7 @@ const SideNav = () => {
                             <IconOrder className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/orderWorkflow"
+                            to="/admin/orderWorkflow"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -102,7 +102,7 @@ const SideNav = () => {
                             <IconPayment className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/paymentControl"
+                            to="/admin/paymentControl"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -123,7 +123,7 @@ const SideNav = () => {
                             <IconAnalytics className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/businessAnalytics"
+                            to="/admin/businessAnalytics"
                             className={`
                                         ${styles.navText}
                                         ${collapsed ? styles.hideText : ""}
@@ -144,7 +144,7 @@ const SideNav = () => {
                             <IconOffers className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/offers"
+                            to="/admin/offers"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -165,7 +165,7 @@ const SideNav = () => {
                             <IconCoupon className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/coupons"
+                            to="/admin/coupons"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -186,7 +186,7 @@ const SideNav = () => {
                             <IconRecords className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/records"
+                            to="/admin/records"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -207,7 +207,7 @@ const SideNav = () => {
                             <IconManagement className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/management"
+                            to="/admin/management"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -228,7 +228,7 @@ const SideNav = () => {
                             <IconComplaints className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/complaints"
+                            to="/admin/complaints"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}
@@ -249,7 +249,7 @@ const SideNav = () => {
                             <IconBecomePartner className={styles.navIcon} />
                         </div>
                         <Link
-                            to="/becomePartner"
+                            to="/admin/becomePartner"
                             className={`
         ${styles.navText}
         ${collapsed ? styles.hideText : ""}

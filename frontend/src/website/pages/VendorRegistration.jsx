@@ -104,6 +104,31 @@ export function VendorRegistration() {
             }
         });
 
+        const ifscCode = formData.ifscCode?.trim() || '';
+        if (ifscCode && !/^[A-Za-z]{4}[0-9]{7}$/.test(ifscCode)) {
+            validationErrors.ifscCode = 'Enter a valid IFSC code (4 letters and 7 numbers)';
+        }
+
+        const upiId = formData.upiId?.trim() || '';
+        if (upiId && !upiId.includes('@')) {
+            validationErrors.upiId = 'UPI ID must contain @';
+        }
+
+        const gstNumber = formData.gstNumber?.trim() || '';
+        if (gstNumber && gstNumber.length !== 12) {
+            validationErrors.gstNumber = 'GST Number must be 12 characters';
+        }
+
+        const aadhar = formData.aadhar?.trim() || '';
+        if (aadhar && !/^\d{12}$/.test(aadhar)) {
+            validationErrors.aadhar = 'Aadhaar must be 12 digits';
+        }
+
+        const pan = formData.pan?.trim() || '';
+        if (pan && pan.length !== 10) {
+            validationErrors.pan = 'PAN must be 10 characters';
+        }
+
         services.forEach((service, index) => {
             if (!service.selectedService) {
                 validationErrors[`service_${index}_selectedService`] = 'Please choose a service';
@@ -211,13 +236,16 @@ export function VendorRegistration() {
                                         error={errors.contactPerson}
                                     />
                                     <Input
+                                        className={styles.phoneNumberInput}
                                         label="Phone Number"
                                         name="phone"
-                                        type="tel"
+                                        type="number"
                                         required
+                                        minLength={10}
+                                        maxLength={10}
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        placeholder="+91"
+                                        placeholder="9876543210"
                                         error={errors.phone}
                                     />
                                     <Input
@@ -275,8 +303,31 @@ export function VendorRegistration() {
                                                         onChange={(e) => handleServiceChange(service.id, 'selectedService', e.target.value)}
                                                     >
                                                         <option value="">Select Service</option>
+                                                        <option value="Bathroom cleaning">Bathroom cleaning</option>
+                                                        <option value="Kitchen cleaning">Kitchen cleaning</option>
+                                                        <option value="Home cleaning">Home cleaning</option>
+                                                        <option value="Garden cleaning">Garden cleaning</option>
+                                                        <option value="Sofa cleaning">Sofa cleaning</option>
+                                                        <option value="Carpets & Mattress cleaning">Carpets & Mattress cleaning</option>
+                                                        <option value="Water tank cleaning">Water tank cleaning</option>
+                                                        <option value="Glass cleaning">Glass cleaning</option>
+                                                        <option value="Flooring polish">Flooring polish</option>
+                                                        <option value="Painting services">Painting services</option>
+                                                        <option value="Electrical & Plumbing">Electrical & Plumbing</option>
+                                                        <option value="Pest control">Pest control</option>
+                                                        <option value="Water proofing">Water proofing</option>
+                                                        <option value="Chimney cleaning">Chimney cleaning</option>
+                                                        <option value="Carpenter work">Carpenter work</option>
                                                         <option value="AC Service">AC Service</option>
-                                                        <option value="Cleaning">Cleaning</option>
+                                                        <option value="Civil work">Civil work</option>
+                                                        <option value="Renovation work">Renovation work</option>
+                                                        <option value="Mosquito net">Mosquito net</option>
+                                                        <option value="Aluminium work">Aluminium work</option>
+                                                        <option value="Packers & Movers">Packers & Movers</option>
+                                                        <option value="Laundry">Laundry</option>
+                                                        <option value="RO Water Purifier">RO Water Purifier</option>
+                                                        <option value="Cab service">Cab service</option>
+                                                        <option value="CCTV">CCTV</option>
                                                         <option value="Other">Other</option>
                                                     </select>
                                                     {errors[`service_${index}_selectedService`] && (
@@ -385,6 +436,7 @@ export function VendorRegistration() {
                                         label="Account Holder Name"
                                         name="accountHolderName"
                                         value={formData.accountHolderName}
+                                        required
                                         onChange={handleChange}
                                         placeholder="As per bank records"
                                         error={errors.accountHolderName}
@@ -392,6 +444,7 @@ export function VendorRegistration() {
                                     <Input
                                         label="Account Number"
                                         name="accountNumber"
+                                        required
                                         value={formData.accountNumber}
                                         onChange={handleChange}
                                         placeholder="XXXXXXXXXXXXX"
@@ -400,6 +453,7 @@ export function VendorRegistration() {
                                     <Input
                                         label="IFSC Code"
                                         name="ifscCode"
+                                        required
                                         value={formData.ifscCode}
                                         onChange={handleChange}
                                         placeholder="ABCD0123456"
@@ -408,6 +462,7 @@ export function VendorRegistration() {
                                     <Input
                                         label="UPI ID"
                                         name="upiId"
+                                        required
                                         value={formData.upiId}
                                         onChange={handleChange}
                                         placeholder="mobile@upi"
@@ -439,6 +494,7 @@ export function VendorRegistration() {
                                     <Input
                                         label="Aadhar"
                                         name="aadhar"
+                                        required
                                         value={formData.aadhar}
                                         onChange={handleChange}
                                         placeholder="Aadhar Number"
@@ -447,6 +503,7 @@ export function VendorRegistration() {
                                     <Input
                                         label="PAN"
                                         name="pan"
+                                        required
                                         value={formData.pan}
                                         onChange={handleChange}
                                         placeholder="Pan Number"

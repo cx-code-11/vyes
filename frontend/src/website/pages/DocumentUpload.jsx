@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
@@ -19,12 +19,40 @@ export function DocumentUpload() {
     pan: null,
     gst: null
   });
-
+  const [previewUrls, setPreviewUrls] = useState({
+    aadhaar: null,
+    pan: null,
+    gst: null
+  });
   const [isUploading, setIsUploading] = useState(false);
-  
+
+  useEffect(() => {
+    const nextPreviewUrls = {
+      aadhaar: null,
+      pan: null,
+      gst: null
+    };
+
+    const createdUrls = [];
+
+    Object.entries(files).forEach(([type, file]) => {
+      if (file) {
+        const previewUrl = URL.createObjectURL(file);
+        nextPreviewUrls[type] = previewUrl;
+        createdUrls.push(previewUrl);
+      }
+    });
+
+    setPreviewUrls(nextPreviewUrls);
+
+    return () => {
+      createdUrls.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [files]);
+
   const handleFileChange = (e, type) => {
     if (e.target.files && e.target.files[0]) {
-      setFiles({ ...files, [type]: e.target.files[0] });
+      setFiles((prevFiles) => ({ ...prevFiles, [type]: e.target.files[0] }));
     }
   };
 
@@ -85,32 +113,61 @@ export function DocumentUpload() {
   };
 
 
-  const renderUploadBox = (title, type, description) => (
-    <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:bg-slate-50 transition-colors">
-      <input
-        type="file"
-        id={`upload-${type}`}
-        className="hidden"
-        onChange={(e) => handleFileChange(e, type)}
-        accept=".pdf,.jpg,.jpeg,.png"
-      />
-      <label htmlFor={`upload-${type}`} className="cursor-pointer flex flex-col items-center">
-        {files[type] ? (
-          <>
-            <CheckCircle2 className="h-10 w-10 text-green-500 mb-3" />
-            <span className="font-medium text-slate-900">{files[type].name}</span>
-            <span className="text-sm text-slate-500 mt-1">Click to change</span>
-          </>
-        ) : (
-          <>
-            <Upload className="h-10 w-10 text-blue-500 mb-3" />
-            <span className="font-medium text-slate-900">Upload {title}</span>
-            <span className="text-sm text-slate-500 mt-1">{description} (PDF, JPG, PNG)</span>
-          </>
-        )}
-      </label>
-    </div>
-  );
+  const renderUploadBox = (title, type, description) => {
+    const selectedFile = files[type];
+    const selectedPreviewUrl = previewUrls[type];
+    const isPdf = selectedFile?.type === 'application/pdf';
+
+    return (
+      <div className="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center hover:bg-slate-50 transition-colors">
+        <input
+          type="file"
+          id={`upload-${type}`}
+          className="hidden"
+          onChange={(e) => handleFileChange(e, type)}
+          accept=".pdf,.jpg,.jpeg,.png"
+        />
+        <label htmlFor={`upload-${type}`} className="cursor-pointer flex flex-col items-center">
+          {selectedFile ? (
+            <div className="w-full space-y-4">
+              <div className="mx-auto flex h-48 w-full max-w-sm items-center justify-center overflow-hidden rounded-md border border-slate-200 bg-white">
+                {isPdf ? (
+                  <iframe
+                    src={selectedPreviewUrl}
+                    title={`${title} preview`}
+                    className="h-full w-full"
+                  />
+                ) : selectedPreviewUrl ? (
+                  <img
+                    src={selectedPreviewUrl}
+                    alt={`${title} preview`}
+                    className="h-full w-full object-contain"
+                  />
+                ) : (
+                  <div className="text-center px-4">
+                    <FileText className="h-10 w-10 text-slate-400 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-slate-700">{selectedFile.name}</p>
+                    <p className="text-xs text-slate-500 mt-1">Preview not available</p>
+                  </div>
+                )}
+              </div>
+              <div>
+                <CheckCircle2 className="h-10 w-10 text-green-500 mb-3 mx-auto" />
+                <span className="font-medium text-slate-900 block">{selectedFile.name}</span>
+                <span className="text-sm text-slate-500 mt-1 block">Click to change</span>
+              </div>
+            </div>
+          ) : (
+            <>
+              <Upload className="h-10 w-10 text-blue-500 mb-3" />
+              <span className="font-medium text-slate-900">Upload {title}</span>
+              <span className="text-sm text-slate-500 mt-1">{description} (PDF, JPG, PNG)</span>
+            </>
+          )}
+        </label>
+      </div>
+    );
+  };
 
   return (
     <div className="max-w-3xl mx-auto">
