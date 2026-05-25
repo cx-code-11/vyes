@@ -8,7 +8,7 @@ export function VerificationPending() {
   const navigate = useNavigate();
   
   return (
-    <div className="max-w-2xl mx-auto pt-12">
+    <div className="max-w-2xl mx-auto pt-12 min-h-[75vh] flex flex-col justify-center">
       <Card className="text-center">
         <CardContent className="pt-12 pb-12">
           <div className="flex justify-center mb-6">
@@ -16,7 +16,9 @@ export function VerificationPending() {
               <Clock className="w-10 h-10 text-amber-600" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">Vendor </h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">
+            Vendor Onboarding Pending<span className="text-green-600">!</span>
+          </h1>
           <p className="text-slate-600 text-lg mb-8 max-w-md mx-auto">
             Thank you for completing your onboarding. Your profile and documents are currently under review by our admin team.
           </p>
