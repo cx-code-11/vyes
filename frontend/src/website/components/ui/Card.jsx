@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from '../styles/card.module.css';
 
 export function Card({ children, className = '', ...props }) {
   return (
-    <div className={`bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden ${className}`} {...props}>
+    <div className={`${styles.card} ${className}`} {...props}>
       {children}
     </div>
   );
@@ -10,16 +11,16 @@ export function Card({ children, className = '', ...props }) {
 
 export function CardHeader({ title, description, className = '' }) {
   return (
-    <div className={`px-6 py-5 border-b border-slate-100 ${className}`}>
-      <h3 className="text-lg font-semibold leading-6 text-slate-900">{title}</h3>
-      {description && <p className="mt-1 text-sm text-slate-500">{description}</p>}
+    <div className={`${styles.cardHeader} ${className}`}>
+      <h3 className={styles.title}>{title}</h3>
+      {description && <p className={styles.description}>{description}</p>}
     </div>
   );
 }
 
 export function CardContent({ children, className = '' }) {
   return (
-    <div className={`px-6 py-5 ${className}`}>
+    <div className={`${styles.cardContent} ${className}`}>
       {children}
     </div>
   );
@@ -27,7 +28,7 @@ export function CardContent({ children, className = '' }) {
 
 export function CardFooter({ children, className = '' }) {
   return (
-    <div className={`px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-end gap-3 ${className}`}>
+    <div className={`${styles.cardFooter} ${className}`}>
       {children}
     </div>
   );
