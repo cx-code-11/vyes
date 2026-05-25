@@ -11,6 +11,7 @@
 
 .headerSection {
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .pageTitle {
@@ -28,6 +29,9 @@
 
 .stepsContainer {
   margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .contentWrapper {
@@ -38,8 +42,8 @@
 
 .tcBox {
   border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
-  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
   padding: 24px;
 }
 
@@ -86,19 +90,18 @@
   overflow: hidden;
   border-radius: 0.5rem;
   border: 1px solid #cbd5e1;
-  background-color: #f1f5f9;
-  padding: 24px 0;
+  background-color: #cbd5e1; /* cool gray background for contrast */
 }
 
 .scrollContainer {
-  max-height: 36rem;
+  max-height: 40rem;
   overflow-y: auto;
-  background-color: #f1f5f9;
+  background-color: #e2e8f0; /* lighter cool gray interior */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 0 16px;
+  padding: 24px 16px;
 }
 
 :global(.react-pdf__Document) {
@@ -111,18 +114,29 @@
 
 :global(.react-pdf__Page) {
   background-color: #ffffff !important;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
-  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+  border-radius: 6px;
   overflow: hidden;
   max-width: 100%;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #cbd5e1;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+:global(.react-pdf__Page):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15) !important;
 }
 
 .checkboxContainer {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #eff6ff; /* light blue background box */
+  border: 1px solid #bfdbfe;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
 }
 
 .checkboxWrapper {
@@ -149,6 +163,7 @@
   font-size: 0.875rem;
   color: #334155;
   user-select: none;
+  line-height: 1.4;
 }
 
 .labelName {
@@ -159,7 +174,8 @@
 .checkboxHelpText {
   margin-top: 4px;
   font-size: 0.75rem;
-  color: #64748b;
+  color: #2563eb; /* highlight blue to make instruction clear */
+  font-weight: 500;
 }
 
 .errorMessage {
