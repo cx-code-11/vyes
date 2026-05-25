@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: vyess_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-vyess_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-vyess_secure_pass}
+      POSTGRES_DB: ${DB_NAME:-vyess_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vyess_backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://${DB_USER:-vyess_user}:${DB_PASSWORD:-vyess_secure_pass}@postgres:5432/${DB_NAME:-vyess_db}?schema=public
+    volumes:
+      - uploads_data:/app/uploads
+    command: >
+      sh -c "
+      echo 'Waiting for database to be ready...' &&
+      until nc -z postgres 5432; do sleep 1; done &&
+      echo 'Database is up! Running migrations...' &&
+      npx prisma migrate deploy &&
+      echo 'Starting backend server...' &&
+      npm start
+      "
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Since nginx proxies API requests, we use relative paths (empty URL)
+        - VITE_API_BASE_URL=
+    container_name: vyess_frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  uploads_data:

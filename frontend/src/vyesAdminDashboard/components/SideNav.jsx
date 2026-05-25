@@ -10,7 +10,7 @@ import IconAnalytics from '../assets/icon-analytics.svg?react';
 import IconOffers from '../assets/icon-offers.svg?react';
 import IconCoupon from '../assets/icon-coupon.svg?react';
 import IconRecords from '../assets/icon-records.svg?react';
-import IconManagement from '../assets/icon-Management.svg?react';
+import IconManagement from '../assets/icon-management.svg?react';
 import IconComplaints from '../assets/icon-complaints.svg?react';
 import IconBecomePartner from '../assets/icon-becomePartner.svg?react';
 import IconNotification from '../assets/icon-notification.svg?react';
