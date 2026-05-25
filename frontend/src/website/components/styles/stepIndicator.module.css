@@ -67,3 +67,9 @@
     border-top: 4px solid #2563eb;
   }
 }
+
+.checkIcon {
+  width: 1rem;
+  height: 1rem;
+  color: #2563eb;
+}

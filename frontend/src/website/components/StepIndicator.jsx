@@ -24,7 +24,7 @@ export function StepIndicator({ steps, currentStep }) {
                 </span>
                 <span className={styles.stepName}>
                   {step.name}
-                  {isCompleted && <Check className="w-4 h-4 text-blue-600" />}
+                  {isCompleted && <Check className={styles.checkIcon} />}
                 </span>
               </div>
             </li>

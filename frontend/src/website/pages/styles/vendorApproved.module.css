@@ -1,0 +1,67 @@
+.pageWrapper {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box;
+}
+
+.contentBox {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+.cardOverride {
+  border-color: #bbf7d0 !important;
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.iconCircle {
+  width: 5rem;
+  height: 5rem;
+  background-color: #d1fae5;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #16a34a;
+}
+
+.pageTitle {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #475569;
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.portalBtn {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+.portalBtn:hover {
+  background-color: #15803d !important;
+}
