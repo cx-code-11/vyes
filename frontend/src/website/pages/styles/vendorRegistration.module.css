@@ -206,3 +206,39 @@
   padding-top: 1.5rem; /* pt-6 */
   margin-top: 1.5rem; /* mt-6 */
 }
+
+.serviceItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.serviceItemTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.removeServiceBtn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  padding: 6px;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.removeServiceBtn:hover {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.removeIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+}

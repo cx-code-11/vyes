@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
-import { Building2, Briefcase, CreditCard, Shield, Plus } from 'lucide-react';
+import { Building2, Briefcase, CreditCard, Shield, Plus, Trash2 } from 'lucide-react';
 
 import styles from './styles/vendorRegistration.module.css';
 
@@ -75,6 +75,17 @@ export function VendorRegistration() {
                 service.id === id ? { ...service, [field]: value } : service
             )
         );
+    };
+
+    const handleRemoveService = (id) => {
+        if (services.length > 1) {
+            setServices(services.filter((service) => service.id !== id));
+            
+            // Clean up errors related to this index if any
+            const updatedErrors = { ...errors };
+            // Since filter changes indexing of subsequent items, we reset the errors to prevent mismatch
+            setErrors({});
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -291,6 +302,19 @@ export function VendorRegistration() {
                                 <div className={styles.serviceList}>
                                     {services.map((service, index) => (
                                         <div key={service.id} className={index > 0 ? styles.serviceDivider : ""}>
+                                            <div className={styles.serviceItemHeader}>
+                                                <span className={styles.serviceItemTitle}>Service #{index + 1}</span>
+                                                {services.length > 1 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => handleRemoveService(service.id)}
+                                                        className={styles.removeServiceBtn}
+                                                        aria-label="Remove Service"
+                                                    >
+                                                        <Trash2 className={styles.removeIcon} />
+                                                    </button>
+                                                )}
+                                            </div>
                                             <div className={styles.grid2Col}>
 
                                                 <div>
