@@ -4,7 +4,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
-import { PDFDocument } from 'pdf-lib';
+import { PDFDocument, rgb } from 'pdf-lib';
 import agreementPdf from '../assets/VYESSFMS_Vendor_Agreement.pdf';
 import companySignatureImg from '../assets/vyessfms_signature.png';
 import companySealImg from '../assets/vyessfms_seal.png';
@@ -74,6 +74,14 @@ export function AgreementPreview() {
           y: 315,
           width: 90,
           height: 90,
+        });
+
+        // Draw company signatory name and designation
+        lastPage.drawText("SUGANYA / CEO", {
+          x: 100,
+          y: 445,
+          size: 11,
+          color: rgb(0.2, 0.2, 0.2),
         });
         
         const savedBytes = await pdfDoc.save();

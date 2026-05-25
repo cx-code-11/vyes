@@ -94,6 +94,14 @@ export function DigitalSignature() {
         height: 90,
       });
 
+      // Draw company signatory name and designation
+      lastPage.drawText("SUGANYA / CEO", {
+        x: 100,
+        y: 445,
+        size: 11,
+        color: rgb(0.2, 0.2, 0.2),
+      });
+
       // Draw vendor signature image (centered on signature line)
       const signatureBytes = Uint8Array.from(atob(sigDataUrl.split(',')[1]), (char) => char.charCodeAt(0));
       const signatureImage = await pdfDoc.embedPng(signatureBytes);
