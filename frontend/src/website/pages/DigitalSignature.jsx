@@ -78,8 +78,8 @@ export function DigitalSignature() {
       const sigBytesCompany = Uint8Array.from(atob(transparentSigCompany.split(',')[1]), (c) => c.charCodeAt(0));
       const sigImageCompany = await pdfDoc.embedPng(sigBytesCompany);
       lastPage.drawImage(sigImageCompany, {
-        x: 100,
-        y: 508,
+        x: 110,
+        y: 519,
         width: 100,
         height: 28,
       });
@@ -88,16 +88,16 @@ export function DigitalSignature() {
       const sealBytesCompany = Uint8Array.from(atob(transparentSealCompany.split(',')[1]), (c) => c.charCodeAt(0));
       const sealImageCompany = await pdfDoc.embedPng(sealBytesCompany);
       lastPage.drawImage(sealImageCompany, {
-        x: 90,
-        y: 315,
-        width: 90,
-        height: 90,
+        x: 110,
+        y: 330,
+        width: 75,
+        height: 75,
       });
 
       // Draw company signatory name and designation
       lastPage.drawText("SUGANYA / CEO", {
-        x: 100,
-        y: 445,
+        x: 110,
+        y: 462,
         size: 11,
         color: rgb(0.2, 0.2, 0.2),
       });

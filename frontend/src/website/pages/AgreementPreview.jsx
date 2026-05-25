@@ -60,8 +60,8 @@ export function AgreementPreview() {
         const sigSigBytes = Uint8Array.from(atob(transparentSig.split(',')[1]), (c) => c.charCodeAt(0));
         const sigImage = await pdfDoc.embedPng(sigSigBytes);
         lastPage.drawImage(sigImage, {
-          x: 100,
-          y: 508,
+          x: 110,
+          y: 519,
           width: 100,
           height: 28,
         });
@@ -70,16 +70,16 @@ export function AgreementPreview() {
         const sealBytes = Uint8Array.from(atob(transparentSeal.split(',')[1]), (c) => c.charCodeAt(0));
         const sealImage = await pdfDoc.embedPng(sealBytes);
         lastPage.drawImage(sealImage, {
-          x: 90,
-          y: 315,
-          width: 90,
-          height: 90,
+          x: 110,
+          y: 330,
+          width: 75,
+          height: 75,
         });
 
         // Draw company signatory name and designation
         lastPage.drawText("SUGANYA / CEO", {
-          x: 100,
-          y: 445,
+          x: 110,
+          y: 462,
           size: 11,
           color: rgb(0.2, 0.2, 0.2),
         });
