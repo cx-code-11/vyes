@@ -37,7 +37,7 @@ export function VendorRegistration() {
 
     const [errors, setErrors] = useState({});
     const [submissionError, setSubmissionError] = useState('');
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+    const apiBaseUrl = typeof import.meta.env.VITE_API_BASE_URL !== 'undefined' ? import.meta.env.VITE_API_BASE_URL : 'http://localhost:3000';
 
     // State for dynamic services
     const [services, setServices] = useState([

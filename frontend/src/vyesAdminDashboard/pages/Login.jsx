@@ -5,7 +5,7 @@ import longArrow from '../assets/icon-longArrow.png'
 import customerLogin from '../assets/icon-customerLogin.png'
 import Styles from './styles/login.module.css';
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const apiBaseUrl = typeof import.meta.env.VITE_API_BASE_URL !== 'undefined' ? import.meta.env.VITE_API_BASE_URL : 'http://localhost:3000';
 
 const Login = () => {
   const navigate = useNavigate();

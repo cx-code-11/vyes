@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles/becomePartner.module.css';
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+const apiBaseUrl = typeof import.meta.env.VITE_API_BASE_URL !== 'undefined' ? import.meta.env.VITE_API_BASE_URL : 'http://localhost:3000';
 
 const getInitials = (name) => {
   if (!name) return '??';

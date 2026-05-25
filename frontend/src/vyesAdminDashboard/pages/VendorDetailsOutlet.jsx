@@ -29,7 +29,7 @@ export default function VendorDetailsOutlet() {
     const [loading, setLoading] = useState(!registration);
     const [error, setError] = useState('');
     const [previewUrl, setPreviewUrl] = useState(null);
-    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+    const apiBaseUrl = typeof import.meta.env.VITE_API_BASE_URL !== 'undefined' ? import.meta.env.VITE_API_BASE_URL : 'http://localhost:3000';
 
     useEffect(() => {
         if (!registration && id) {

@@ -4,7 +4,7 @@ import UserCard from '../components/UserCard';
 const UsersPage = () => {
   const [users, setUsers] = useState([]);
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000';
+  const apiBaseUrl = typeof import.meta.env.VITE_API_BASE_URL !== 'undefined' ? import.meta.env.VITE_API_BASE_URL : 'http://localhost:3000';
 
   useEffect(() => {
     fetch(`${apiBaseUrl}/users`)
