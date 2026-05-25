@@ -7,7 +7,7 @@ import { StepIndicator } from '../components/StepIndicator';
 import { PDFDocument } from 'pdf-lib';
 import agreementPdf from '../assets/VYESSFMS_Vendor_Agreement.pdf';
 import companySignatureImg from '../assets/vyessfms_signature.jpg';
-import companySealImg from '../assets/vyessfms_seal.jpg';
+import companySealImg from '../assets/vyessfms_seal.png';
 import { makeImageTransparent } from '../utils/imageHelpers';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -70,10 +70,10 @@ export function AgreementPreview() {
         const sealBytes = Uint8Array.from(atob(transparentSeal.split(',')[1]), (c) => c.charCodeAt(0));
         const sealImage = await pdfDoc.embedPng(sealBytes);
         lastPage.drawImage(sealImage, {
-          x: 100,
+          x: 90,
           y: 315,
-          width: 60,
-          height: 60,
+          width: 90,
+          height: 90,
         });
         
         const savedBytes = await pdfDoc.save();

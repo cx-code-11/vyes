@@ -7,7 +7,7 @@ import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import { Eraser, Download } from 'lucide-react';
 import companySignatureImg from '../assets/vyessfms_signature.jpg';
-import companySealImg from '../assets/vyessfms_seal.jpg';
+import companySealImg from '../assets/vyessfms_seal.png';
 import { makeImageTransparent } from '../utils/imageHelpers';
 import styles from './styles/digitalSignature.module.css';
 
@@ -88,10 +88,10 @@ export function DigitalSignature() {
       const sealBytesCompany = Uint8Array.from(atob(transparentSealCompany.split(',')[1]), (c) => c.charCodeAt(0));
       const sealImageCompany = await pdfDoc.embedPng(sealBytesCompany);
       lastPage.drawImage(sealImageCompany, {
-        x: 100,
+        x: 90,
         y: 315,
-        width: 60,
-        height: 60,
+        width: 90,
+        height: 90,
       });
 
       // Draw vendor signature image (centered on signature line)
