@@ -6,7 +6,7 @@ import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import { PDFDocument } from 'pdf-lib';
 import agreementPdf from '../assets/VYESSFMS_Vendor_Agreement.pdf';
-import companySignatureImg from '../assets/vyessfms_signature.jpg';
+import companySignatureImg from '../assets/vyessfms_signature.png';
 import companySealImg from '../assets/vyessfms_seal.png';
 import { makeImageTransparent } from '../utils/imageHelpers';
 

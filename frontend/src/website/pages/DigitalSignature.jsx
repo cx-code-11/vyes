@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import { Eraser, Download } from 'lucide-react';
-import companySignatureImg from '../assets/vyessfms_signature.jpg';
+import companySignatureImg from '../assets/vyessfms_signature.png';
 import companySealImg from '../assets/vyessfms_seal.png';
 import { makeImageTransparent } from '../utils/imageHelpers';
 import styles from './styles/digitalSignature.module.css';
