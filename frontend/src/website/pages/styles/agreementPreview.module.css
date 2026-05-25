@@ -4,6 +4,9 @@
   margin-right: auto;
   padding-top: 1rem;
   padding-bottom: 2rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  box-sizing: border-box;
 }
 
 .headerSection {
@@ -163,4 +166,19 @@
   margin-top: 12px;
   font-size: 0.875rem;
   color: #e11d48;
+}
+
+.cardFooter {
+  justify-content: space-between !important;
+}
+
+.cardHeader {
+  background-color: #f8fafc !important;
+}
+
+.loadingText {
+  padding: 24px;
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
 }

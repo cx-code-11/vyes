@@ -27,12 +27,36 @@ export function AgreementPreview() {
   const [hasFullyViewedPdf, setHasFullyViewedPdf] = useState(false);
   const [numPages, setNumPages] = useState(null);
   const [previewError, setPreviewError] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(595);
 
   useEffect(() => {
     const data = localStorage.getItem('vendorData');
     if (data) {
       setVendorData(JSON.parse(data));
     }
+  }, []);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleResize = (entries) => {
+      for (let entry of entries) {
+        const width = entry.contentRect.width;
+        const paddedWidth = Math.max(width - 32, 280);
+        setContainerWidth(Math.min(paddedWidth, 595));
+      }
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(container);
+
+    const initialWidth = container.getBoundingClientRect().width;
+    setContainerWidth(Math.min(Math.max(initialWidth - 32, 280), 595));
+
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, []);
 
   const checkFullView = () => {
@@ -76,7 +100,7 @@ export function AgreementPreview() {
         <CardHeader
           title="Agreement Preview"
           description="Read carefully before accepting"
-          className="bg-slate-50"
+          className={styles.cardHeader}
         />
         <CardContent className={styles.contentWrapper}>
           <div className={styles.tcBox}>
@@ -107,7 +131,7 @@ export function AgreementPreview() {
                   }}
                   onLoadError={() => setPreviewError(true)}
                   loading={
-                    <div className="p-6 text-sm text-slate-500">
+                    <div className={styles.loadingText}>
                       Loading agreement PDF...
                     </div>
                   }
@@ -116,7 +140,7 @@ export function AgreementPreview() {
                     <Page
                       key={`page_${index + 1}`}
                       pageNumber={index + 1}
-                      width={595}
+                      width={containerWidth}
                       renderTextLayer
                       renderAnnotationLayer
                     />
@@ -156,7 +180,7 @@ export function AgreementPreview() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="justify-between">
+        <CardFooter className={styles.cardFooter}>
           <Button variant="outline" onClick={() => navigate('/upload')}>
             Back
           </Button>

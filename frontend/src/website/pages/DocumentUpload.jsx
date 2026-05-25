@@ -192,7 +192,7 @@ export function DocumentUpload() {
             {renderUploadBox('PAN Card', 'pan', 'Clear image of PAN card')}
             {renderUploadBox('GST Certificate', 'gst', 'Optional if not applicable')}
           </CardContent>
-          <CardFooter className="justify-between">
+          <CardFooter className={styles.cardFooter}>
             <Button variant="outline" type="button" onClick={() => navigate('/register')}>
               Back
             </Button>
@@ -203,7 +203,7 @@ export function DocumentUpload() {
             >
               {isUploading ? (
                 <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                  <Loader2 className={styles.spinner} />
                   Uploading...
                 </>
               ) : (
