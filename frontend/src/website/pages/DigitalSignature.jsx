@@ -6,6 +6,9 @@ import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
 import { Eraser, Download } from 'lucide-react';
+import companySignatureImg from '../assets/vyessfms_signature.jpg';
+import companySealImg from '../assets/vyessfms_seal.jpg';
+import { makeImageTransparent } from '../utils/imageHelpers';
 import styles from './styles/digitalSignature.module.css';
 
 const steps = [
@@ -67,14 +70,31 @@ export function DigitalSignature() {
       const lastPage = pages[pages.length - 1];
       const { width, height } = lastPage.getSize();
 
+      // Convert company signature and seal to transparent PNGs
+      const transparentSigCompany = await makeImageTransparent(companySignatureImg);
+      const transparentSealCompany = await makeImageTransparent(companySealImg);
 
-      // Right-side table coordinates (A4: 612x792)
-      // Table top-left: x=330, y=height-260
-      // Signature line: x=350, y=height-295 (width ~180, height ~32)
-      // Name line: x=350, y=height-355
-      // Date line: x=350, y=height-475
+      // Draw company signature
+      const sigBytesCompany = Uint8Array.from(atob(transparentSigCompany.split(',')[1]), (c) => c.charCodeAt(0));
+      const sigImageCompany = await pdfDoc.embedPng(sigBytesCompany);
+      lastPage.drawImage(sigImageCompany, {
+        x: 100,
+        y: 508,
+        width: 100,
+        height: 28,
+      });
 
-      // Draw signature image (centered on signature line)
+      // Draw company seal
+      const sealBytesCompany = Uint8Array.from(atob(transparentSealCompany.split(',')[1]), (c) => c.charCodeAt(0));
+      const sealImageCompany = await pdfDoc.embedPng(sealBytesCompany);
+      lastPage.drawImage(sealImageCompany, {
+        x: 100,
+        y: 315,
+        width: 60,
+        height: 60,
+      });
+
+      // Draw vendor signature image (centered on signature line)
       const signatureBytes = Uint8Array.from(atob(sigDataUrl.split(',')[1]), (char) => char.charCodeAt(0));
       const signatureImage = await pdfDoc.embedPng(signatureBytes);
       lastPage.drawImage(signatureImage, {

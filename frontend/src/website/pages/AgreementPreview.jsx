@@ -4,7 +4,11 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
+import { PDFDocument } from 'pdf-lib';
 import agreementPdf from '../assets/VYESSFMS_Vendor_Agreement.pdf';
+import companySignatureImg from '../assets/vyessfms_signature.jpg';
+import companySealImg from '../assets/vyessfms_seal.jpg';
+import { makeImageTransparent } from '../utils/imageHelpers';
 
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
@@ -28,12 +32,59 @@ export function AgreementPreview() {
   const [numPages, setNumPages] = useState(null);
   const [previewError, setPreviewError] = useState(false);
   const [containerWidth, setContainerWidth] = useState(595);
+  const [pdfFile, setPdfFile] = useState(null);
 
   useEffect(() => {
     const data = localStorage.getItem('vendorData');
     if (data) {
       setVendorData(JSON.parse(data));
     }
+  }, []);
+
+  useEffect(() => {
+    const preparePdf = async () => {
+      try {
+        const response = await fetch(agreementPdf);
+        const pdfBytes = await response.arrayBuffer();
+        const pdfDoc = await PDFDocument.load(pdfBytes);
+        
+        // Convert signature and seal to transparent PNGs
+        const transparentSig = await makeImageTransparent(companySignatureImg);
+        const transparentSeal = await makeImageTransparent(companySealImg);
+        
+        const pages = pdfDoc.getPages();
+        const lastPage = pages[pages.length - 1];
+        const { height } = lastPage.getSize();
+        
+        // Draw company signature
+        const sigSigBytes = Uint8Array.from(atob(transparentSig.split(',')[1]), (c) => c.charCodeAt(0));
+        const sigImage = await pdfDoc.embedPng(sigSigBytes);
+        lastPage.drawImage(sigImage, {
+          x: 100,
+          y: 508,
+          width: 100,
+          height: 28,
+        });
+        
+        // Draw company seal
+        const sealBytes = Uint8Array.from(atob(transparentSeal.split(',')[1]), (c) => c.charCodeAt(0));
+        const sealImage = await pdfDoc.embedPng(sealBytes);
+        lastPage.drawImage(sealImage, {
+          x: 100,
+          y: 315,
+          width: 60,
+          height: 60,
+        });
+        
+        const savedBytes = await pdfDoc.save();
+        setPdfFile({ data: savedBytes });
+      } catch (err) {
+        console.error("Error embedding company details into preview PDF:", err);
+        setPdfFile(agreementPdf); // fallback to raw template
+      }
+    };
+    
+    preparePdf();
   }, []);
 
   useEffect(() => {
@@ -123,29 +174,35 @@ export function AgreementPreview() {
                 onScroll={checkFullView}
                 className={styles.scrollContainer}
               >
-                <Document
-                  file={agreementPdf}
-                  onLoadSuccess={({ numPages: loadedPages }) => {
-                    setNumPages(loadedPages);
-                    setPreviewError(false);
-                  }}
-                  onLoadError={() => setPreviewError(true)}
-                  loading={
-                    <div className={styles.loadingText}>
-                      Loading agreement PDF...
-                    </div>
-                  }
-                >
-                  {Array.from(new Array(numPages || 0), (_, index) => (
-                    <Page
-                      key={`page_${index + 1}`}
-                      pageNumber={index + 1}
-                      width={containerWidth}
-                      renderTextLayer
-                      renderAnnotationLayer
-                    />
-                  ))}
-                </Document>
+                {pdfFile ? (
+                  <Document
+                    file={pdfFile}
+                    onLoadSuccess={({ numPages: loadedPages }) => {
+                      setNumPages(loadedPages);
+                      setPreviewError(false);
+                    }}
+                    onLoadError={() => setPreviewError(true)}
+                    loading={
+                      <div className={styles.loadingText}>
+                        Loading agreement PDF...
+                      </div>
+                    }
+                  >
+                    {Array.from(new Array(numPages || 0), (_, index) => (
+                      <Page
+                        key={`page_${index + 1}`}
+                        pageNumber={index + 1}
+                        width={containerWidth}
+                        renderTextLayer
+                        renderAnnotationLayer
+                      />
+                    ))}
+                  </Document>
+                ) : (
+                  <div className={styles.loadingText}>
+                    Preparing agreement document...
+                  </div>
+                )}
               </div>
             </div>
 
