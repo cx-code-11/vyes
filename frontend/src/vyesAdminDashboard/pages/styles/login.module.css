@@ -1,238 +1,182 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Metrophobic&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Spline+Sans:wght@300..700&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.loginWrapper{
+.loginWrapper {
     width: 100%;
-    height: 90vh;
-}
-
-.loginContainer{
-    display: flex;
-    padding-top: 50px;
-}
-
-.contentLeft{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.contentLeftWrapper{
-    padding: 0 0 0 10vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.bannerImgContainer{
-    width: 36vw;
-    height: 60vh;
-}
-
-.bannerImgContainer>img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.pageTitleContainer{
-    width: 100%;
-    padding-top: 30px;
-}
-
-.pageTitleContainer h1{
-    font-family: "spline Sans", sans-serif;
-    font-size: 40px;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 1);
-}
-
-.pageTitleContainer p{
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    color: rgba(110, 110, 110, 1);
-    padding: 12px 0 0 0;
-}
-
-.contentRight{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.contentRightWrapper{
-    width: 60%;
-}
-.caption{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-.caption h2{
-    font-family: "Spline Sans", sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: rgba(0, 0, 0, 1);
-}
-.caption p{
-  font-family: "DM Sans", sans-serif;
-  font-weight: 400;
-    font-size: 16px;
-    color: rgba(142, 142, 142, 1);
-}
-
-.formBox{
-    margin-top: 50px;
-    width: 100%;
-}
-
-.label{
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 1);
-    padding-top: 20px;
-}
-.input{
-    width: 100%;
-    border: 1px solid rgba(238, 238, 238, 1);
-    border-radius: 8px;
-    padding: 12px;
-    color: rgba(0, 0, 0, 1);
-    outline: none;
-    font-family: "DM Sans", sans-serif;
-    margin-top: 12px;
-}
-.input::placeholder{
-    color: rgba(170, 170, 170, 1);
-    font-weight: 400;
-    font-size: 12px;
-}
-
-.options{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 8px;
-    margin: 12px 0;
-}
-
-.rememberMe>label{
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    color: rgba(142, 142, 142, 1);
-    padding: 0 0 0 4px;
-}
-.forgotPassword{
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    color: rgba(37, 99, 235, 1);
-    text-decoration: none;
-}
-
-.fillButton{
-    width: 100%;
-    background-color: rgba(37, 99, 235, 1);
-    border: none;
-    border-radius: 8px;
-    padding: 10px 0;
-    cursor: pointer;
-    margin: 12px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.buttonWrapper{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.buttonWrapper>p{
-    font-family: "DM Sans", sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    color: #fff;
-}
-
-.fillButton>button img{
-    object-fit: contain;
-    margin-bottom: -5px;
-}
-.dividerContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    margin: 12px 0 30px 0;
-    /* border: 1px solid red; */
-}
-
-.divider{
-    width: 100%;
-    border-bottom: 1px solid rgba(238, 238, 238, 1);
-    margin-top: 20px;
-}
-
-.dividerText{
-    position: absolute;
-    top: 65%;
-    background-color: #fff;
-    color: rgba(204, 204, 204, 1);
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    padding: 0 8px;
-}
-
-.stockButton>button{
-    width: 100%;
-    color: rgba(37, 99, 235, 1);
-    background-color: #fff;
-    border: 1px solid rgba(37, 99, 235, 1);
-    border-radius: 8px;
-    padding: 8px 0;
-    font-family: "DM Sans", sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    cursor: pointer;
+    min-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-}
-.stockButton>button img{
-    object-fit: contain;
+    background-color: #f8fafc;
+    padding: 24px 16px;
 }
 
-.signupLinkContainer>p{
+.loginContainer {
+    width: 100%;
+    max-width: 480px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contentRight {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentRightWrapper {
+    width: 100%;
+}
+
+.caption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.caption h2 {
+    font-family: "Spline Sans", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.caption p {
     font-family: "DM Sans", sans-serif;
     font-weight: 400;
-    font-size: 12px;
-    color: rgba(204, 204, 204, 1);
-    text-align: center;
-    padding: 16px 0;
+    font-size: 15px;
+    color: #64748b;
 }
-.signupLinkContainer>p a{
-    color: rgba(37, 99, 235, 1);
+
+.formBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #334155;
+    margin-top: 24px;
+    display: block;
+}
+
+.input {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: #0f172a;
+    outline: none;
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+    background-color: #ffffff;
+}
+
+.input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.fillButton {
+    width: 100%;
+    background-color: #2563eb;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 0;
     cursor: pointer;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.fillButton:hover:not(:disabled) {
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.fillButton:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.buttonWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.buttonWrapper > p {
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.buttonWrapper > img {
+    object-fit: contain;
+    width: 18px;
+    height: 18px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.2s ease;
+}
+
+.fillButton:hover .buttonWrapper > img {
+    transform: translateX(3px);
 }
 
 .errorMessage {
-  margin-top: 12px;
-  color: #dc2626;
-  font-family: "DM Sans", sans-serif;
-  font-size: 13px;
+    margin-top: 16px;
+    color: #dc2626;
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Hidden elements to make sure we don't break references in JSX */
+.contentLeft, .contentLeftWrapper, .bannerImgContainer, .pageTitleContainer, .options, .rememberMe, .forgotPassword, .dividerContainer, .divider, .dividerText, .stockButton, .signupLinkContainer, .signupLink {
+    display: none;
 }

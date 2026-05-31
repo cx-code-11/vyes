@@ -188,3 +188,112 @@
 .submitBtn:hover {
   background-color: #1d4ed8 !important;
 }
+
+/* Signature Modes & Upload styles */
+.modeToggleContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.modeBtn {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.modeBtn:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.modeBtnActive {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+}
+
+.uploadArea {
+  margin-top: 12px;
+  background-color: #ffffff;
+  border: 2px dashed #cbd5e1;
+  border-radius: 0.75rem;
+  height: 256px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.uploadArea:hover {
+  border-color: #2563eb;
+  background-color: #f8fafc;
+}
+
+.dropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.uploadIcon {
+  width: 40px;
+  height: 40px;
+  color: #64748b;
+}
+
+.uploadText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.uploadHint {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.fileInputHidden {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.previewBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+}
+
+.signaturePreview {
+  max-height: 160px;
+  max-width: 90%;
+  object-fit: contain;
+  border-radius: 6px;
+}

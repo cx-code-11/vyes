@@ -5,7 +5,7 @@ import { PDFDocument, rgb } from 'pdf-lib';
 import { Card, CardContent, CardHeader, CardFooter } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { StepIndicator } from '../components/StepIndicator';
-import { Eraser, Download } from 'lucide-react';
+import { Eraser, Download, Upload } from 'lucide-react';
 import companySignatureImg from '../assets/vyessfms_signature.png';
 import companySealImg from '../assets/vyessfms_seal.png';
 import { makeImageTransparent } from '../utils/imageHelpers';
@@ -28,6 +28,8 @@ export function DigitalSignature() {
   const [vendorData, setVendorData] = useState({});
   const [businessName, setBusinessName] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [signatureMode, setSignatureMode] = useState('draw'); // 'draw' or 'upload'
+  const [uploadedSignatureUrl, setUploadedSignatureUrl] = useState(null);
 
   const vendorName = businessName || vendorData.businessName || vendorData.companyName || 'Vendor';
 
@@ -41,16 +43,38 @@ export function DigitalSignature() {
     setTimestamp(new Date().toLocaleString());
   }, []);
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadedSignatureUrl(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   // Signature canvas resize and rendering are handled natively inside the SignatureCanvas component.
 
   const clearSignature = () => {
-    sigCanvas.current.clear();
+    if (signatureMode === 'draw') {
+      if (sigCanvas.current) sigCanvas.current.clear();
+    } else {
+      setUploadedSignatureUrl(null);
+    }
   };
 
   const generatePDF = async () => {
-    if (!sigCanvas.current || sigCanvas.current.isEmpty()) {
-      alert('Please provide a signature first.');
-      return;
+    if (signatureMode === 'draw') {
+      if (!sigCanvas.current || sigCanvas.current.isEmpty()) {
+        alert('Please draw your signature first.');
+        return;
+      }
+    } else {
+      if (!uploadedSignatureUrl) {
+        alert('Please upload a photo of your signature first.');
+        return;
+      }
     }
 
     if (!businessName.trim()) {
@@ -61,7 +85,12 @@ export function DigitalSignature() {
     setIsGenerating(true);
 
     try {
-      const sigDataUrl = sigCanvas.current.getCanvas().toDataURL('image/png');
+      let sigDataUrl = '';
+      if (signatureMode === 'draw') {
+        sigDataUrl = sigCanvas.current.getCanvas().toDataURL('image/png');
+      } else {
+        sigDataUrl = await makeImageTransparent(uploadedSignatureUrl);
+      }
       const response = await fetch(agreementPdfUrl);
       if (!response.ok) throw new Error('Failed to load agreement PDF');
       const pdfBytes = await response.arrayBuffer();
@@ -233,16 +262,64 @@ export function DigitalSignature() {
 
             <div className={styles.cardSection}>
               <p className={styles.fieldLabel}>Vendor / Service Provider - signature</p>
-              <div className={styles.signatureBox}>
-                <SignatureCanvas
-                  ref={sigCanvas}
-                  className={styles.canvasWrapper}
-                  backgroundColor="rgb(255, 255, 255)"
-                />
+              
+              <div className={styles.modeToggleContainer}>
+                <button
+                  type="button"
+                  className={`${styles.modeBtn} ${signatureMode === 'draw' ? styles.modeBtnActive : ''}`}
+                  onClick={() => setSignatureMode('draw')}
+                >
+                  Draw on Board
+                </button>
+                <button
+                  type="button"
+                  className={`${styles.modeBtn} ${signatureMode === 'upload' ? styles.modeBtnActive : ''}`}
+                  onClick={() => setSignatureMode('upload')}
+                >
+                  Upload Signature Photo
+                </button>
               </div>
-              <p className={styles.helpText}>
-                Draw your signature in the space above.
-              </p>
+
+              {signatureMode === 'draw' ? (
+                <>
+                  <div className={styles.signatureBox}>
+                    <SignatureCanvas
+                      ref={sigCanvas}
+                      className={styles.canvasWrapper}
+                      backgroundColor="rgb(255, 255, 255)"
+                    />
+                  </div>
+                  <p className={styles.helpText}>
+                    Draw your signature on the board above.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className={styles.uploadArea}>
+                    {uploadedSignatureUrl ? (
+                      <div className={styles.previewBox}>
+                        <img src={uploadedSignatureUrl} alt="Uploaded Signature" className={styles.signaturePreview} />
+                      </div>
+                    ) : (
+                      <div className={styles.dropZone}>
+                        <input 
+                          type="file" 
+                          id="signatureUpload" 
+                          accept="image/*" 
+                          onChange={handleImageUpload} 
+                          className={styles.fileInputHidden} 
+                        />
+                        <Upload className={styles.uploadIcon} />
+                        <span className={styles.uploadText}>Choose or drag a signature image</span>
+                        <span className={styles.uploadHint}>Supports PNG, JPG, JPEG</span>
+                      </div>
+                    )}
+                  </div>
+                  <p className={styles.helpText}>
+                    Upload an image or photo of your signature.
+                  </p>
+                </>
+              )}
             </div>
           </div>
 
