@@ -1,454 +1,127 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Spline+Sans:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-.homeWrapper {
+.comingSoonWrapper {
     width: 100%;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    background-color: #f8fafc;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    color: #0f172a;
-    overflow-x: hidden;
-}
-
-/* Header & Navigation */
-.header {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    width: 100%;
-    display: flex;
+    align-items: center;
     justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 24px 16px;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.headerContainer {
+.comingSoonCard {
     width: 100%;
-    max-width: 1280px;
-    height: 80px;
+    max-width: 680px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    padding: 48px 24px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 24px;
+    text-align: center;
+    box-sizing: border-box;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.logoSection {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-.logoImage {
-    height: 40px;
+@media (min-width: 640px) {
+    .comingSoonCard {
+        padding: 64px 48px;
+    }
+}
+
+.comingSoonLogo {
+    height: 72px;
     width: auto;
-    display: block;
+    margin-bottom: 24px;
     object-fit: contain;
 }
 
-/* Hero Section */
-.heroSection {
-    width: 100%;
-    position: relative;
-    background: linear-gradient(to bottom right, #eef2ff, #ffffff, #eff6ff);
-    padding: 64px 0;
-    border-bottom: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: center;
-}
-
-@media (min-width: 1024px) {
-    .heroSection {
-        padding: 96px 0;
-    }
-}
-
-.heroContainer {
-    width: 100%;
-    max-width: 1280px;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 48px;
-    align-items: center;
-}
-
-@media (min-width: 1024px) {
-    .heroContainer {
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 32px;
-    }
-}
-
-.heroContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 24px;
-}
-
-@media (min-width: 1024px) {
-    .heroContent {
-        grid-column: span 7;
-        align-items: flex-start;
-        text-align: left;
-    }
-}
-
-.heroTitle {
-    font-size: 36px;
-    font-weight: 800;
-    color: #0f172a;
-    line-height: 1.15;
-    letter-spacing: -1px;
-}
-
-@media (min-width: 640px) {
-    .heroTitle {
-        font-size: 48px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .heroTitle {
-        font-size: 56px;
-    }
-}
-
-.gradientText {
-    background: linear-gradient(135deg, #2563eb 20%, #4f46e5 50%, #7c3aed 80%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.heroDescription {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #475569;
-    max-width: 576px;
-}
-
-.heroActions {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 16px;
-}
-
-@media (min-width: 640px) {
-    .heroActions {
-        flex-direction: row;
-        width: auto;
-    }
-}
-
-.heroCtaBtn {
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    color: #ffffff;
-    padding: 16px 32px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-}
-
-.heroCtaBtn:hover {
-    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
-    transform: translateY(-1px);
-}
-
-.heroSecondaryBtn {
-    background-color: #f1f5f9;
-    color: #334155;
-    padding: 16px 32px;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-}
-
-.heroSecondaryBtn:hover {
-    background-color: #e2e8f0;
-}
-
-/* Hero Right: Image */
-.heroImageWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@media (min-width: 1024px) {
-    .heroImageWrapper {
-        grid-column: span 5;
-    }
-}
-
-.heroImage {
-    width: 100%;
-    max-width: 480px;
-    height: auto;
-    border-radius: 24px;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
-    object-fit: cover;
-    border: 1px solid #e2e8f0;
-}
-
-/* Roadmap / Process Flow */
-.roadmapSection {
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 80px 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.sectionContainer {
-    width: 100%;
-    max-width: 1280px;
-    padding: 0 24px;
-}
-
-.sectionHeader {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 640px;
-    margin: 0 auto;
-}
-
-.sectionHeader h2 {
-    font-size: 12px;
-    font-weight: 700;
-    color: #2563eb;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.sectionHeader h3 {
+.comingSoonTitle {
     font-size: 28px;
     font-weight: 800;
     color: #0f172a;
     letter-spacing: -0.5px;
-}
-
-@media (min-width: 640px) {
-    .sectionHeader h3 {
-        font-size: 36px;
-    }
-}
-
-.sectionHeader p {
-    font-size: 16px;
-    color: #64748b;
-    line-height: 1.5;
-}
-
-.roadmapGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-    margin-top: 48px;
-}
-
-@media (min-width: 768px) {
-    .roadmapGrid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 1024px) {
-    .roadmapGrid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-}
-
-.roadmapCard {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.2s ease;
-}
-
-.roadmapCard:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-}
-
-.stepNumber {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    font-size: 72px;
-    font-weight: 900;
-    color: #f1f5f9;
-    user-select: none;
-    line-height: 1;
-    z-index: 0;
-    transition: color 0.2s ease;
-}
-
-.roadmapCard:hover .stepNumber {
-    color: #dbeafe;
-}
-
-.roadmapCardContent {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.roadmapIcon {
-    width: 48px;
-    height: 48px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.roadmapIcon svg {
-    width: 24px;
-    height: 24px;
-}
-
-.roadmapCardTitle {
-    font-size: 18px;
-    font-weight: 700;
-    color: #0f172a;
-}
-
-.roadmapCardDesc {
-    font-size: 14px;
-    color: #64748b;
-    line-height: 1.6;
-}
-
-/* Footer Call to Action (CTA) */
-.footerCtaSection {
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
-    color: #ffffff;
-    padding: 64px 24px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-
-.footerCtaContainer {
-    width: 100%;
-    max-width: 896px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-}
-
-.footerCtaTitle {
-    font-size: 28px;
-    font-weight: 800;
+    margin-bottom: 12px;
     line-height: 1.25;
-    letter-spacing: -0.5px;
 }
 
 @media (min-width: 640px) {
-    .footerCtaTitle {
-        font-size: 36px;
+    .comingSoonTitle {
+        font-size: 38px;
     }
 }
 
-.footerCtaDesc {
-    font-size: 16px;
-    color: #dbeafe;
-    line-height: 1.6;
-    max-width: 576px;
+.comingSoonSubtitle {
+    font-size: 15px;
+    color: #64748b;
+    margin-bottom: 32px;
+    font-weight: 500;
 }
 
-.footerCtaBtn {
-    background-color: #ffffff;
-    color: #2563eb;
+@media (min-width: 640px) {
+    .comingSoonSubtitle {
+        font-size: 16px;
+    }
+}
+
+.comingSoonBtn {
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    color: #ffffff;
     padding: 16px 32px;
-    border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    display: flex;
+    border: none;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: background-color 0.2s ease;
+    gap: 10px;
+    box-shadow: 0 10px 20px -3px rgba(37, 99, 235, 0.25);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 48px;
+    text-decoration: none;
 }
 
-.footerCtaBtn:hover {
-    background-color: #f8fafc;
+.comingSoonBtn:hover {
+    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.35);
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #1d4ed8, #4338ca);
 }
 
-/* Footer Section */
-.footer {
-    background-color: #ffffff;
-    padding: 32px 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    border-top: 1px solid #e2e8f0;
+.comingSoonBtn svg {
+    transition: transform 0.2s ease;
 }
 
-.footerContainer {
-    width: 100%;
-    max-width: 1280px;
-    padding: 0 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+.comingSoonBtn:hover svg {
+    transform: translateX(4px);
 }
 
-@media (min-width: 768px) {
-    .footerContainer {
-        flex-direction: row;
-    }
-}
-
-.footerLogoSection {
-    display: flex;
-    align-items: center;
-}
-
-.footerLogoImage {
-    height: 32px;
-    width: auto;
-    display: block;
-    object-fit: contain;
-}
-
-.footerCopyright {
-    font-size: 12px;
-    color: #94a3b8;
+.socialTitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
 }
 
 .socialLinks {
@@ -461,8 +134,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: #f1f5f9;
     color: #64748b;
@@ -474,6 +147,7 @@
     background-color: #2563eb;
     color: #ffffff;
     transform: translateY(-2px);
+    box-shadow: 0 8px 15px -3px rgba(37, 99, 235, 0.2);
 }
 
 .socialIcon {
