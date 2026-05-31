@@ -21,7 +21,8 @@ services:
     depends_on:
       - postgres
     environment:
-      PORT: 3000
+      ports:
+      - "3001:3000"
       DATABASE_URL: postgresql://${DB_USER:-vyess_user}:${DB_PASSWORD:-vyess_secure_pass}@postgres:5432/${DB_NAME:-vyess_db}?schema=public
     volumes:
       - uploads_data:/app/uploads
@@ -30,7 +31,8 @@ services:
       echo 'Waiting for database to be ready...' &&
       until nc -z postgres 5432; do sleep 1; done &&
       echo 'Database is up! Running migrations...' &&
-      npx prisma migrate deploy &&
+      npx prisma db push --accept-data-loss &&
+      npx prisma generate &&
       echo 'Starting backend server...' &&
       npm start
       "
@@ -45,7 +47,7 @@ services:
     container_name: vyess_frontend
     restart: unless-stopped
     ports:
-      - "${FRONTEND_PORT:-80}:80"
+      - "3000:80"
     depends_on:
       - backend
 
